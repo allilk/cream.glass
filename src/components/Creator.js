@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 export class Creator extends Component {
   render() {
     return (
-      <Fragment>
+      <>
         <div>
           <center>
             <div id="" className="mx-8 md:mx-32">
@@ -49,7 +49,7 @@ export class Creator extends Component {
             </div>
           </center>
         </div>
-      </Fragment>
+      </>
     );
   }
 }

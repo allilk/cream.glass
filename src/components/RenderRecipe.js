@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 export class RenderRecipe extends Component {
   componentDidMount() {}
   render() {
     return (
-      <Fragment>
+      <>
         <div>
           <div className="">
             <div id="title" className="my-4 text-4xl text-center">
@@ -43,7 +43,7 @@ export class RenderRecipe extends Component {
             </div>
           </div>
         </div>
-      </Fragment>
+      </>
     );
   }
 }
