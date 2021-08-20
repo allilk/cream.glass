@@ -5,7 +5,7 @@ export class RenderRecipe extends Component {
   render() {
     return (
       <Fragment>
-        <div className="App">
+        <div>
           <div className="">
             <div id="title" className="my-4 text-4xl text-center">
               drink.recipe
@@ -18,7 +18,7 @@ export class RenderRecipe extends Component {
               <div className="col-span-2 md:col-span-1 text-xl text-center mb-6 md:mb-0">
                 Ingredients
               </div>
-              <div className="col-span-2 md:col-span-1 text-md text-center md:text-left">
+              <div className="col-span-2 md:col-span-1 text-center md:text-left">
                 <div className="space-x-4">
                   <div className="inline font-semibold">measurement</div>
                   <div className="inline">ingredient.1</div>
