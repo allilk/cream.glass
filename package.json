@@ -6,7 +6,7 @@
   "scripts": {
     "webpack-dev-server": "webpack-dev-server",
     "dev": "webpack-dev-server --mode=development",
-    "build": "webpack --mode production && echo '/* /index.html 200'"
+    "build": "webpack --mode production && echo '/* /index.html 200' > dist/_redirects"
   },
   "author": "",
   "license": "ISC",
