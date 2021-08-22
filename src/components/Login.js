@@ -4,23 +4,24 @@ import { Redirect, Link } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import { login } from "../actions/auth";
+import { Message } from "./Message";
 
 export const Login = (props) => {
 	const { register, handleSubmit } = useForm();
 	const checkBtn = useRef();
 
-	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [loading, setLoading] = useState(false);
+	// const [message, setMessage] = useState("");
 
 	const { isLoggedIn } = useSelector((state) => state.auth);
 	const { message } = useSelector((state) => state.message);
 
 	const dispatch = useDispatch();
 
-	const onChangeUsername = (e) => {
-		const username = e.target.value;
-		setUsername(username);
+	const onChangeEmail = (e) => {
+		const email = e.target.value;
+		setEmail(email);
 	};
 
 	const onChangePassword = (e) => {
@@ -31,46 +32,34 @@ export const Login = (props) => {
 	const handleLogin = (e) => {
 		e.preventDefault();
 
-		setLoading(true);
-
-		// if (checkBtn.current.context._errors.length === 0) {
-		console.log(`${username} : ${password}`);
-		dispatch(login(username, password))
-			.then(() => {
-				props.history.push("/");
-				window.location.reload();
-			})
-			.catch(() => {
-				setLoading(false);
-			});
-		// } else {
-		// 	setLoading(false);
-		// }
+		dispatch(login(email, password)).then(() => {
+			props.history.push("/");
+			window.location.reload();
+		});
 	};
 
 	if (isLoggedIn) {
 		return <Redirect to="/" />;
 	}
-
 	return (
 		<div>
-			<br />
-			<br />
 			<center>
-				<div className="border-2 border-blue-300 w-3/4 md:w-1/4 h-80 px-3">
+				<Message />
+
+				<div className="border-2 border-blue-300 w-5/6 md:w-1/4 h-auto ">
 					<br />
 					<div className="text-4xl mb-6 tracking-widest">LOGIN</div>
 					<div className="mb-12">
 						<form onSubmit={handleLogin}>
 							<input
 								className="border-2 border-blue-300 rounded px-4 py-1"
-								{...register("username", {
+								{...register("email", {
 									required: true,
-									maxLength: 20,
 								})}
 								placeholder="Email"
-								onChange={onChangeUsername}
+								onChange={onChangeEmail}
 								type="email"
+								required
 							/>
 							<br />
 							<br />
@@ -83,6 +72,7 @@ export const Login = (props) => {
 								placeholder="Password"
 								onChange={onChangePassword}
 								type="password"
+								required
 							/>
 							<br />
 							<div className="text-sm underline text-gray-500 my-4">

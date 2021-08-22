@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../actions/auth";
 import { history } from "./helpers/history";
+import { clearMessage } from "../actions/message";
 
 export const Header = () => {
 	const { user: currentUser } = useSelector((state) => state.auth);
