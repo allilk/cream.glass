@@ -57,7 +57,7 @@ export const Login = (props) => {
 			<br />
 			<br />
 			<center>
-				<div className="border-2 border-blue-300 w-3/4 md:w-1/4 h-80">
+				<div className="border-2 border-blue-300 w-3/4 md:w-1/4 h-80 px-3">
 					<br />
 					<div className="text-4xl mb-6 tracking-widest">LOGIN</div>
 					<div className="mb-12">
@@ -70,6 +70,7 @@ export const Login = (props) => {
 								})}
 								placeholder="Email"
 								onChange={onChangeUsername}
+								type="email"
 							/>
 							<br />
 							<br />
@@ -81,6 +82,7 @@ export const Login = (props) => {
 								})}
 								placeholder="Password"
 								onChange={onChangePassword}
+								type="password"
 							/>
 							<br />
 							<div className="text-sm underline text-gray-500 my-4">

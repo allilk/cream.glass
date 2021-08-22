@@ -20,10 +20,7 @@ export const Header = () => {
 	};
 	return (
 		<div>
-			<div
-				style={{ backgroundColor: "#b2d5eb" }}
-				className="text-white p-4"
-			>
+			<div className="text-white p-4 bg-blue-300">
 				<div className="inline absolute left-0 top-0 py-4 mx-4">
 					<Link to="">cream.glass</Link>
 				</div>
@@ -38,6 +35,16 @@ export const Header = () => {
 							<Link className="" to="/login" onClick={logOut}>
 								Logout
 							</Link>
+						</div>
+					</div>
+				</div>
+				<div className={currentUser ? "hidden" : ""}>
+					<div className="inline-flex absolute right-0 mx-4 space-x-6">
+						<div>
+							<Link to="/login">Login</Link>
+						</div>
+						<div>
+							<Link to="/register">Register</Link>
 						</div>
 					</div>
 				</div>
