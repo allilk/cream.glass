@@ -9,6 +9,7 @@ import { Header } from "./components/Header";
 import { Creator } from "./components/Creator";
 import { Register } from "./components/Register";
 import { Login } from "./components/Login";
+import { Home } from "./components/Home";
 // import { Profile } from "./components/Profile"
 
 class App extends Component {
@@ -21,9 +22,10 @@ class App extends Component {
 						<Switch>
 							<Route path="/r/" component={RenderRecipe} />
 							<Route path="/create" component={Creator} />
-							<Route path="/register" component={Register} />
 							<Route path="/login" component={Login} />
+							<Route path="/register" component={Register} />
 							{/* <Route path="/profile" component={Profile}/> */}
+							<Route path="/" component={Home} />
 						</Switch>
 					</div>
 				</Router>
