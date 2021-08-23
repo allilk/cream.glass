@@ -91,7 +91,7 @@ export const Creator = () => {
 									<center>
 										<input
 											type="submit"
-											className=" bottom-0 rounded-full font-semibold px-32 py-2 bg-blue-300 hover:bg-blue-500 "
+											className="col-span-full bottom-0 rounded-full font-semibold px-32 py-2 bg-blue-300 hover:bg-blue-500 "
 											value="CREATE"
 										/>
 									</center>
