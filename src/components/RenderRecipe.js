@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getRecipe } from "./recipe/getRecipe";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Ingredients } from "./Ingredients";
 import moment from "moment";
 
 export const RenderRecipe = (x) => {
 	const identifier = x.match.params.slug;
-	const { user: currentUser } = useSelector((state) => state.auth);
+	// const { user: currentUser } = useSelector((state) => state.auth);
 	const [Data, setData] = useState({
 		title: "",
 		steps: "",
@@ -20,7 +20,7 @@ export const RenderRecipe = (x) => {
 	const [ingredients, setIngredients] = useState([{}]);
 
 	useEffect(() => {
-		getRecipe(identifier, currentUser.token)
+		getRecipe(identifier)
 			.then((res) => {
 				setData({ ...res.data });
 				setIngredients(res.data.ingredients);

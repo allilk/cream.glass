@@ -1,12 +1,12 @@
 import axios from "axios";
 const API_URL = "https://api.cream.glass/recipe/";
 
-export const getRecipe = async (identifier, token) => {
+export const getRecipe = async (identifier) => {
 	const resp = await axios({
 		url: API_URL + "get",
 		method: "post",
 		headers: {
-			Authorization: `JWT ${token}`,
+			// Authorization: `JWT ${token}`,
 			"content-type": "application/json",
 		},
 		data: {
