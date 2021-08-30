@@ -40,6 +40,8 @@ export const Register = (props) => {
 		dispatch(register(name, email, password))
 			.then(() => {
 				setSuccessful(true);
+				props.history.push("/login");
+				window.location.reload();
 			})
 
 			.catch(() => {
@@ -47,9 +49,6 @@ export const Register = (props) => {
 			});
 	};
 
-	// if (isLoggedIn) {
-	// 	return <Redirect to="/" />;
-	// }
 	return (
 		<div>
 			<Message />
