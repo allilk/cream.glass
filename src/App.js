@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from "react";
 import { RenderRecipe } from "./components/RenderRecipe";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -20,7 +19,7 @@ class App extends Component {
 					<div className="App">
 						<Header />
 						<Switch>
-							<Route path="/r/" component={RenderRecipe} />
+							<Route path="/r/:slug" component={RenderRecipe} />
 							<Route path="/create" component={Creator} />
 							<Route path="/login" component={Login} />
 							<Route path="/register" component={Register} />
