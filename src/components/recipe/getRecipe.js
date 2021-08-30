@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://localhost:3000/recipe/";
+const API_URL = "https://api.cream.glass/recipe/";
 
 export const getRecipe = async (identifier, token) => {
 	const resp = await axios({

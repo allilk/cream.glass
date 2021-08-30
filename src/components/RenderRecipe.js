@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getRecipe } from "./recipe/getRecipe";
 import { useSelector } from "react-redux";
 import { Ingredients } from "./Ingredients";
+import moment from "moment";
 
 export const RenderRecipe = (x) => {
 	const identifier = x.match.params.slug;
@@ -10,7 +11,9 @@ export const RenderRecipe = (x) => {
 		title: "",
 		steps: "",
 		details: {
+			created_by: "",
 			created: "",
+			updated_by: "",
 			updated_last: "",
 		},
 	});
@@ -34,8 +37,20 @@ export const RenderRecipe = (x) => {
 					<div id="title" className="my-4 text-4xl text-center">
 						{Data.title}
 					</div>
-					{/* <div>Created: {Data.details.created}</div> */}
 					<center>
+						<div className="text-gray-500 text-sm my-2 ">
+							<div className="inline">Created </div>
+							<div
+								className={
+									Data.details.created ? "inline" : "hidden"
+								}
+							>
+								{moment(Data.details.created).format(
+									"MMMM Do YYYY @ h:mm:ss a"
+								)}
+							</div>
+						</div>
+
 						<hr className="w-5/6 md:w-2/3" />
 					</center>
 					<br />
@@ -45,10 +60,11 @@ export const RenderRecipe = (x) => {
 						<hr className="w-5/6 md:w-2/3" />
 					</center>
 					<br />
-					<div id="steps" className="">
-						<div className="text-xl text-center mb-6 md:mb-0">
+					<div id="steps" className="text-center">
+						<div className="text-xl  mb-6 md:mb-0 md:mb-2">
 							Steps
 						</div>
+						<div className="">{Data.steps}</div>
 					</div>
 				</div>
 			</div>

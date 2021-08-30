@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/auth/";
+const API_URL = "https://api.cream.glass/auth/";
 
 const register = (username, email, password) => {
 	return axios.post(API_URL + "register", {
