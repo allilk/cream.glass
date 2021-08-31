@@ -24,7 +24,7 @@ export const Creator = () => {
 		return (
 			<div className="flex border-2 border-red-500 hover:border-red-700">
 				<input
-					className="rounded-none flex-none w-8 bg-red-500 hover:bg-red-700 text-white md:text-center items-baseline text-lg"
+					className="flex-none w-8 bg-red-500 hover:bg-red-700 text-white md:text-center items-baseline text-lg"
 					type="submit"
 					onClick={() => {
 						handleDel(i);
@@ -32,7 +32,7 @@ export const Creator = () => {
 					value="x"
 				/>
 
-				<div className="rounded-none flex-grow p-2">
+				<div className="flex-grow p-2">
 					<div key={i}>{item}</div>
 				</div>
 			</div>
@@ -73,12 +73,12 @@ export const Creator = () => {
 							<div className="flex border-2 border-black mb-2">
 								<form className="contents ">
 									<input
-										className="rounded-noneflex-none border-2 border-black w-8 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-xl"
+										className="flex-none border-2 border-black w-8 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-xl"
 										type="submit"
 										onClick={handleAdd}
 										value="+"
 									/>
-									<div className="rounded-none contents">
+									<div className="contents">
 										<input
 											className="flex-grow p-2"
 											onChange={onChangeVal}

@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 :root {
-    font-size: 18px;
+	font-size: 18px;
 }
 hr {
-    border: 2px solid black;
+	border: 2px solid black;
+}
+input {
+	-webkit-border-radius: 0px;
 }
