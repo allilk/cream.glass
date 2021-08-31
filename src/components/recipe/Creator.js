@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Message } from "../Message";
+import { Redirect } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { add_recipe } from "../../actions/recipe";
@@ -10,6 +11,9 @@ export const Creator = (props) => {
 		amountVal = "1";
 
 	const { user: currentUser } = useSelector((state) => state.auth);
+	if (!currentUser) {
+		return <Redirect to="/login" />;
+	}
 	const token = currentUser.token;
 
 	const [ingredients, setIngredients] = useState([]);
@@ -42,7 +46,10 @@ export const Creator = (props) => {
 		if (ingredientVal) {
 			setIngredients([
 				...ingredients,
-				{ amount: `${amountVal} ${measureVal}`, name: ingredientVal },
+				{
+					amount: `${amountVal} ${measureVal}`,
+					name: ingredientVal,
+				},
 			]);
 		}
 	};
@@ -56,7 +63,12 @@ export const Creator = (props) => {
 	const handleRecipe = (e) => {
 		e.preventDefault();
 
-		dispatch(add_recipe({ title: name, steps: desc, ingredients }, token));
+		dispatch(
+			add_recipe({ title: name, steps: desc, ingredients }, token)
+		).then((x) => {
+			props.history.push(`/r/${x.id}`);
+			window.location.reload();
+		});
 	};
 	const items = ingredients.map((item, i) => {
 		return (
@@ -111,6 +123,7 @@ export const Creator = (props) => {
 										onChange={onChangeDesc}
 										rows="7"
 										className="p-2 w-full"
+										required
 									></textarea>
 								</div>
 							</div>

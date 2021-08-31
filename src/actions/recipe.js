@@ -18,7 +18,7 @@ export const add_recipe = (obj, token) => (dispatch) => {
 				type: SET_MESSAGE,
 				payload: response.data.message,
 			});
-			return Promise.resolve();
+			return Promise.resolve(response.data);
 		},
 		(error) => {
 			const message =
@@ -37,7 +37,7 @@ export const add_recipe = (obj, token) => (dispatch) => {
 				payload: message,
 			});
 
-			return Promise.reject();
+			return Promise.reject(message);
 		}
 	);
 };
