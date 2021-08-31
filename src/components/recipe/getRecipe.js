@@ -1,9 +1,11 @@
 import axios from "axios";
-const API_URL = "http://localhost:3000/recipe/";
+import { API_URL } from "../../services/service.vals";
+
+const RECIPE_API = API_URL + "/recipe/";
 
 export const getRecipe = async (identifier) => {
 	const resp = await axios({
-		url: API_URL + "get",
+		url: RECIPE_API + "get",
 		method: "post",
 		headers: {
 			// Authorization: `JWT ${token}`,
@@ -18,7 +20,7 @@ export const getRecipe = async (identifier) => {
 
 export const getAll = async (page, limit) => {
 	const resp = await axios({
-		url: API_URL + `?page=${page}&limit=${limit}`,
+		url: RECIPE_API + `?page=${page}&limit=${limit}`,
 		method: "get",
 		headers: {
 			// Authorization: `JWT ${token}`,

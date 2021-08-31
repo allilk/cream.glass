@@ -13,5 +13,6 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const GET_RECIPE = "GET_RECIPE";
 export const FAIL_TO_GET_RECIPE = "FAIL_TO_GET_RECIPE";
 export const ADD_RECIPE = "ADD_RECIPE";
+export const FAIL_TO_ADD_RECIPE = "FAIL_TO_ADD_RECIPE";
 export const DEL_RECIPE = "DEL_RECIPE";
 export const UPD_RECIPE = "UPD_RECIPE";
