@@ -13,17 +13,27 @@ export const Creator = () => {
 			setIngredients([...ingredients, ingredientVal]);
 		}
 	};
+	const handleDel = (i) => {
+		setIngredients(
+			ingredients.filter((val, index) => {
+				return index != i;
+			})
+		);
+	};
 	const items = ingredients.map((item, i) => {
 		return (
-			<div className="grid grid-cols-12 mt-2">
+			<div className="flex border-2 border-red-500 hover:border-red-700">
 				<input
-					className="col-span-1 border-2 border-black md:px-4 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-lg"
+					className="flex-none  w-8 bg-red-500 hover:bg-red-700 text-white md:text-center items-baseline text-lg"
 					type="submit"
-					onClick={handleAdd}
+					onClick={() => {
+						handleDel(i);
+					}}
 					value="x"
 				/>
-				<div className="border-2 p-2 border-black col-start-2 col-span-11">
-					<li key={i}>{item}</li>
+
+				<div className="flex-grow p-2">
+					<div key={i}>{item}</div>
 				</div>
 			</div>
 		);
@@ -31,75 +41,68 @@ export const Creator = () => {
 	return (
 		<>
 			<div>
-				<center>
+				<br />
+				<div className="border-2 border-blue-300 p-4 mx-4 md:mx-32 ">
+					<div className="text-4xl tracking-widest text-center">
+						CREATE NEW RECIPE
+					</div>
 					<br />
-					<div className="border-2 border-b-0 border-blue-300 p-4 mx-4 md:mx-32 h-auto ">
-						<div className="my-4 text-4xl mb-6 tracking-widest text-center">
-							CREATE NEW RECIPE
+					<div className="text-sm grid grid-cols-2 grid-rows-8 space-y-2 md:space-y-0 gap-2">
+						<div className="md:row-span-3 col-span-full md:col-span-1">
+							<div className="h-full border-2 border-black">
+								<div className="">image</div>
+							</div>
 						</div>
-						<div className="grid grid-rows-6 grid-cols-5 h-full gap-4 mb-16">
-							<div className="mb-2 row-span-2 md:row-span-4 md:row-start-1 col-start-1 col-span-full md:col-span-2">
-								<div className="text-left text-sm mb-1">
-									Image
-								</div>
-								<div className="border-2 border-black h-full w-full">
-									<img></img>
-								</div>
+						<div className="row-span-1 col-span-full md:col-span-1">
+							<div className="mb-2">Name</div>
+							<div className="border-2 p-2 border-black">
+								<input className="w-full" type="text"></input>
 							</div>
-							<div className="text-left text-sm row-span-1 col-span-full md:row-start-1 md:col-span-3">
-								<div className="mb-1">Name</div>
+						</div>
+						<div className="row-span-2 col-span-full md:col-span-1 ">
+							<div className="mb-2">Description</div>
+							<div className="border-2 border-black ">
+								<textarea
+									rows="7"
+									className="p-2 w-full"
+								></textarea>
+							</div>
+						</div>
+						<div className="row-span-auto col-span-full md:col-start-1 md:col-span-1">
+							<div className="mb-2">Ingredients</div>
+							<div className="flex mb-2">
+								<form className="contents">
+									<input
+										className="flex-none border-2 border-black w-8 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-xl"
+										type="submit"
+										onClick={handleAdd}
+										value="+"
+									/>
+									<div className="contents">
+										<input
+											className="flex-grow border-2 p-2 border-black"
+											onChange={onChangeVal}
+											type="text"
+											required
+										></input>
+									</div>
+								</form>
+							</div>
+							<div className="overscroll-auto space-y-2">
+								{items}
+							</div>
+						</div>
+						<div className="col-span-full">
+							<center>
 								<input
-									className="border-2 p-2 border-black w-full"
-									type="text"
-								></input>
-							</div>
-							<div className="text-left text-sm row-span-2 col-span-full md:row-start-2 md:col-span-3 md:mt-0">
-								<div className="mb-1">Description</div>
-								<div className="">
-									<textarea
-										rows="7"
-										className="border-2 border-black w-full"
-									></textarea>
-								</div>
-							</div>
-							<div className="text-left text-sm col-span-full md:row-start-5 md:col-span-auto mt-10 md:mt-0">
-								<div className="mb-1">Ingredients</div>
-								<div className="grid grid-cols-12">
-									<form className="contents">
-										<input
-											className="col-span-1 border-2 border-black md:px-4 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-xl"
-											type="submit"
-											onClick={handleAdd}
-											value="+"
-										/>
-										<div className="col-start-2 col-span-11">
-											<input
-												className="border-2 p-2 border-black w-full"
-												onChange={onChangeVal}
-												type="text"
-												required
-											></input>
-										</div>
-									</form>
-								</div>
-								<div className="mt-2 overscroll-auto">
-									{items}
-								</div>
-								<br />
-
-								<div>
-									<center>
-										<input
-											type="submit"
-											className="col-span-full bottom-0 rounded-full font-semibold px-32 py-2 bg-blue-300 hover:bg-blue-500 "
-											value="CREATE"
-										/>
-									</center>
-								</div>
-							</div>
+									type="submit"
+									className=" rounded-full font-semibold px-32 py-2 bg-blue-300 hover:bg-blue-500 "
+									value="CREATE"
+								/>
+							</center>
 						</div>
 					</div>
-				</center>
+				</div>
 			</div>
 		</>
 	);
