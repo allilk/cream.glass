@@ -70,17 +70,17 @@ export const Creator = () => {
 						</div>
 						<div className="row-span-auto col-span-full md:col-start-1 md:col-span-1">
 							<div className="mb-2">Ingredients</div>
-							<div className="flex mb-2">
-								<form className="contents">
+							<div className="flex border-2 border-black mb-2">
+								<form className="contents ">
 									<input
-										className="rounded-none flex-none border-2 border-black w-8 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-xl"
+										className="rounded-noneflex-none border-2 border-black w-8 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-xl"
 										type="submit"
 										onClick={handleAdd}
 										value="+"
 									/>
 									<div className="rounded-none contents">
 										<input
-											className="flex-grow border-2 p-2 border-black"
+											className="flex-grow p-2"
 											onChange={onChangeVal}
 											type="text"
 											required
@@ -96,7 +96,7 @@ export const Creator = () => {
 							<center>
 								<input
 									type="submit"
-									className=" rounded-full font-semibold w-1/2 py-2 bg-blue-300 hover:bg-blue-500 "
+									className=" rounded-full font-semibold w-1/2 py-2 my-4 bg-blue-300 hover:bg-blue-500 "
 									value="CREATE"
 								/>
 							</center>
