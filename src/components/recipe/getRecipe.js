@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "https://api.cream.glass/recipe/";
+const API_URL = "http://localhost:3000/recipe/";
 
 export const getRecipe = async (identifier) => {
 	const resp = await axios({
@@ -11,6 +11,18 @@ export const getRecipe = async (identifier) => {
 		},
 		data: {
 			id: identifier,
+		},
+	}).catch((err) => console.log(err));
+	return resp;
+};
+
+export const getAll = async (page, limit) => {
+	const resp = await axios({
+		url: API_URL + `?page=${page}&limit=${limit}`,
+		method: "get",
+		headers: {
+			// Authorization: `JWT ${token}`,
+			"content-type": "application/json",
 		},
 	}).catch((err) => console.log(err));
 	return resp;

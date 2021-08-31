@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getRecipe } from "./recipe/getRecipe";
+import { getRecipe } from "./getRecipe";
 // import { useSelector } from "react-redux";
 import { Ingredients } from "./Ingredients";
 import moment from "moment";
