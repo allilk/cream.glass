@@ -5,6 +5,9 @@
 :root {
 	font-size: 18px;
 }
+body {
+	background-color: #c7dcff;
+}
 hr {
 	border: 2px solid black;
 }

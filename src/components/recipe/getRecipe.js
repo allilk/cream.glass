@@ -26,6 +26,7 @@ export const getAll = async (page, limit) => {
 			// Authorization: `JWT ${token}`,
 			"content-type": "application/json",
 		},
-	}).catch((err) => console.log(err));
+	});
+
 	return resp;
 };
