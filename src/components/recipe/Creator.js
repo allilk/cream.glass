@@ -117,7 +117,7 @@ export const Creator = (props) => {
 								</div>
 							</div>
 							<div className="row-span-2 col-span-full md:col-span-1 ">
-								<div className="mb-2">Description</div>
+								<div className="mb-2">Steps</div>
 								<div className="border-2 border-black ">
 									<textarea
 										onChange={onChangeDesc}
@@ -125,6 +125,9 @@ export const Creator = (props) => {
 										className="p-2 w-full"
 										required
 									></textarea>
+								</div>
+								<div className="text-xs -mt-0 underline text-gray-500 my-4">
+									This field supports markdown!
 								</div>
 							</div>
 							<div className="row-span-auto col-span-full md:col-start-1 md:col-span-1">
@@ -141,9 +144,20 @@ export const Creator = (props) => {
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>
 										</select>
 										<select onChange={onChangeMeasure}>
+											<option value="tsp">tsp</option>
+											<option value="Tbsp">Tbsp</option>
 											<option value="cups">cups</option>
+											<option value="oz">oz</option>
+											<option value="pint">pint</option>
+											<option value="quart">quart</option>
 										</select>
 										<input
 											className="flex-grow p-2"

@@ -20,11 +20,13 @@ export const Home = () => {
 
 	const displayData = recipes.map((item, i) => {
 		return (
-			<div key={i} className="contents">
+			<div key={i} className="contents ">
 				<Link to={`/r/${item.id}`}>
-					<div className="col-span-1 h-32 bg-blue-400 transition duration-400 hover:bg-blue-500 rounded-md">
+					<div className="col-span-1 h-32 bg-blue-400 transition duration-500 hover:bg-blue-500 rounded-md transition ease-in-out transform hover:-translate-y-1 hover:scale-105">
 						<div className="h-4/5"></div>
-						<div className="h-1/5 bg-white">{item.title}</div>
+						<div className="h-1/5 bg-white rounded-b-md">
+							{item.title}
+						</div>
 					</div>
 				</Link>
 			</div>

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Ingredients } from "./Ingredients";
 import moment from "moment";
 import { get_recipe } from "../../actions/recipe";
+import ReactMarkdown from "react-markdown";
 
 export const RenderRecipe = (x) => {
 	const identifier = x.match.params.slug;
@@ -57,7 +58,9 @@ export const RenderRecipe = (x) => {
 			<br />
 			<div id="steps" className="text-center">
 				<div className="text-xl  mb-6 md:mb-0 md:mb-2">Steps</div>
-				<div className="">{Data.steps}</div>
+				<div className="">
+					<ReactMarkdown>{Data.steps}</ReactMarkdown>
+				</div>
 			</div>
 		</div>
 	);
