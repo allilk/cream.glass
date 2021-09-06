@@ -50,7 +50,39 @@ export const get_recipe = (identifier) => (dispatch) => {
 				type: SET_MESSAGE,
 				payload: response.data.message,
 			});
-			return Promise.resolve();
+			return Promise.resolve(response);
+		},
+		(error) => {
+			const message =
+				(error.response &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+
+			dispatch({
+				type: FAIL_TO_GET_RECIPE,
+			});
+
+			dispatch({
+				type: SET_MESSAGE,
+				payload: message,
+			});
+
+			return Promise.reject();
+		}
+	);
+};
+export const get_all = (page, limit) => (dispatch) => {
+	return RecipeService.get_all(page, limit).then(
+		(response) => {
+			dispatch({ type: GET_RECIPE });
+
+			dispatch({
+				type: SET_MESSAGE,
+				payload: response.data.message,
+			});
+			return Promise.resolve(response);
 		},
 		(error) => {
 			const message =

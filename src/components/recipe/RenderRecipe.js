@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getRecipe } from "./getRecipe";
-// import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Ingredients } from "./Ingredients";
 import moment from "moment";
+import { get_recipe } from "../../actions/recipe";
 
 export const RenderRecipe = (x) => {
 	const identifier = x.match.params.slug;
+	const dispatch = useDispatch();
 	// const { user: currentUser } = useSelector((state) => state.auth);
+
 	const [Data, setData] = useState({
 		title: "",
 		steps: "",
@@ -20,7 +22,7 @@ export const RenderRecipe = (x) => {
 	const [ingredients, setIngredients] = useState([{}]);
 
 	useEffect(() => {
-		getRecipe(identifier)
+		dispatch(get_recipe(identifier))
 			.then((res) => {
 				setData({ ...res.data });
 				setIngredients(res.data.ingredients);
@@ -29,45 +31,50 @@ export const RenderRecipe = (x) => {
 				console.log(err);
 			});
 	}, []);
-
-	return (
-		<>
-			<div>
-				<div className="">
-					<div id="title" className="my-4 text-4xl text-center">
-						{Data.title}
-					</div>
-					<center>
-						<div className="text-gray-500 text-sm my-2 ">
-							<div className="inline">Created </div>
-							<div
-								className={
-									Data.details.created ? "inline" : "hidden"
-								}
-							>
-								{moment(Data.details.created).format(
-									"MMMM Do YYYY @ h:mm:ss a"
-								)}
-							</div>
-						</div>
-
-						<hr className="w-5/6 md:w-2/3" />
-					</center>
-					<br />
-					<Ingredients arr={ingredients} />
-					<br />
-					<center>
-						<hr className="w-5/6 md:w-2/3" />
-					</center>
-					<br />
-					<div id="steps" className="text-center">
-						<div className="text-xl  mb-6 md:mb-0 md:mb-2">
-							Steps
-						</div>
-						<div className="">{Data.steps}</div>
+	const displayData = (
+		<div className="">
+			<div id="title" className="my-4 text-4xl text-center">
+				{Data.title}
+			</div>
+			<center>
+				<div className="text-gray-500 text-sm my-2 ">
+					<div className="inline">Created </div>
+					<div className={Data.details.created ? "inline" : "hidden"}>
+						{moment(Data.details.created).format(
+							"MMMM Do YYYY @ h:mm:ss a"
+						)}
 					</div>
 				</div>
+
+				<hr className="w-5/6 md:w-2/3" />
+			</center>
+			<br />
+			<Ingredients arr={ingredients} />
+			<br />
+			<center>
+				<hr className="w-5/6 md:w-2/3" />
+			</center>
+			<br />
+			<div id="steps" className="text-center">
+				<div className="text-xl  mb-6 md:mb-0 md:mb-2">Steps</div>
+				<div className="">{Data.steps}</div>
 			</div>
+		</div>
+	);
+	const loadingIcon = (
+		<div>
+			<center>
+				<br />
+				<div className="lds-ripple">
+					<div />
+					<div />
+				</div>
+			</center>
+		</div>
+	);
+	return (
+		<>
+			<div>{Data.title.length > 1 ? displayData : loadingIcon}</div>
 		</>
 	);
 };

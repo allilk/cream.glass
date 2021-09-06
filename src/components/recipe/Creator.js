@@ -107,7 +107,7 @@ export const Creator = (props) => {
 							</div>
 							<div className="row-span-1 col-span-full md:col-span-1">
 								<div className="mb-2">Name</div>
-								<div className="border-2 p-2 border-black">
+								<div className="border-2 p-2 border-black bg-white">
 									<input
 										onChange={onChangeName}
 										className="w-full"

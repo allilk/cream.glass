@@ -46,7 +46,7 @@ export const Login = (props) => {
 			<center>
 				<Message />
 
-				<div className="border-2 border-blue-300 w-5/6 md:w-1/4 h-auto ">
+				<div className="border-2 border-blue-300 w-5/6 md:w-1/4 h-auto bg-white rounded-md">
 					<br />
 					<div className="text-4xl mb-6 tracking-widest">LOGIN</div>
 					<div className="mb-12">
