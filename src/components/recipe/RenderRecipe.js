@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
 import { Ingredients } from "./Ingredients";
 import moment from "moment";
 import { get_recipe } from "../../actions/recipe";
+import { get_profile } from "../../actions/user";
 import ReactMarkdown from "react-markdown";
 
 export const RenderRecipe = (x) => {
 	const identifier = x.match.params.slug;
 	const dispatch = useDispatch();
 	// const { user: currentUser } = useSelector((state) => state.auth);
-
+	const [User, setUser] = useState("");
 	const [Data, setData] = useState({
 		title: "",
 		steps: "",
@@ -27,6 +30,11 @@ export const RenderRecipe = (x) => {
 			.then((res) => {
 				setData({ ...res.data });
 				setIngredients(res.data.ingredients);
+				dispatch(get_profile(res.data.details.created_by)).then(
+					(res) => {
+						setUser(res.fullName);
+					}
+				);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -43,8 +51,11 @@ export const RenderRecipe = (x) => {
 					<div className={Data.details.created ? "inline" : "hidden"}>
 						{moment(Data.details.created).format(
 							"MMMM Do YYYY @ h:mm:ss a"
-						)}
+						)}{" "}
+						by{" "}
 					</div>
+
+					<Link to={`/u/${Data.details.created_by}`}>{User}</Link>
 				</div>
 
 				<hr className="w-5/6 md:w-2/3" />

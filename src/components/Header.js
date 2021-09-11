@@ -27,9 +27,9 @@ export const Header = () => {
 				</div>
 				<div className={currentUser ? " " : "hidden"}>
 					<div className="inline-flex absolute right-0 mx-4 space-x-8">
-						<div className="">
+						<div className="text-4xl -mt-3">
 							<Link className="" to="/create">
-								➕
+								+
 							</Link>
 						</div>
 						<div>

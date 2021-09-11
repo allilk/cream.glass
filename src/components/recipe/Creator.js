@@ -158,6 +158,7 @@ export const Creator = (props) => {
 											<option value="oz">oz</option>
 											<option value="pint">pint</option>
 											<option value="quart">quart</option>
+											<option value="scoop">scoop</option>
 										</select>
 										<input
 											className="flex-grow p-2"
