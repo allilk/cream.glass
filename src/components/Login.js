@@ -51,42 +51,55 @@ export const Login = (props) => {
 					<div className="text-4xl mb-6 tracking-widest">LOGIN</div>
 					<div className="mb-12">
 						<form onSubmit={handleLogin}>
-							<input
-								className="border-2 border-blue-300 rounded px-4 py-1"
-								{...register("email", {
-									required: true,
-								})}
-								placeholder="Email"
-								onChange={onChangeEmail}
-								type="email"
-								required
-							/>
-							<br />
-							<br />
-							<input
-								className="border-2 border-blue-300 rounded px-4 py-1"
-								{...register("password", {
-									required: true,
-									maxLength: 20,
-								})}
-								placeholder="Password"
-								onChange={onChangePassword}
-								type="password"
-								required
-							/>
-							<br />
-							<div className="text-sm underline text-gray-500 my-4">
+							<div className="ml-12 text-left pb-1 text-sm">
+								Email
+							</div>
+							<div>
+								<input
+									className="border-2 border-blue-300 rounded px-4 py-1"
+									{...register("email", {
+										required: true,
+									})}
+									onChange={onChangeEmail}
+									type="email"
+									required
+								/>
+							</div>
+							<div className="ml-12 text-left pb-1 text-sm">
+								Password
+							</div>
+
+							<div>
+								<input
+									className="border-2 border-blue-300 rounded px-4 py-1"
+									{...register("password", {
+										required: true,
+										maxLength: 20,
+									})}
+									placeholder="Password"
+									onChange={onChangePassword}
+									type="password"
+									required
+								/>
+							</div>
+							<div className="text-xs underline text-gray-500 mb-2">
 								<Link to="/forgot-password">
 									Forgot password?
 								</Link>
 							</div>
-							<input
+							{/* <input
 								type="submit"
 								className="rounded-full font-semibold px-8 py-2 bg-blue-300 hover:bg-blue-500"
 								ref={checkBtn}
 								value="Login"
-							/>
+							/> */}
 							<br />
+							<input
+								type="submit"
+								className=" font-semibold w-full py-4 bg-blue-300 -mb-12 hover:bg-blue-500 "
+								ref={checkBtn}
+								value="Login"
+							/>
 						</form>
 					</div>
 				</div>

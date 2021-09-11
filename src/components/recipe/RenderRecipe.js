@@ -28,13 +28,13 @@ export const RenderRecipe = (x) => {
 	useEffect(() => {
 		dispatch(get_recipe(identifier))
 			.then((res) => {
-				setData({ ...res.data });
-				setIngredients(res.data.ingredients);
 				dispatch(get_profile(res.data.details.created_by)).then(
 					(res) => {
 						setUser(res.fullName);
 					}
 				);
+				setData({ ...res.data });
+				setIngredients(res.data.ingredients);
 			})
 			.catch((err) => {
 				console.log(err);

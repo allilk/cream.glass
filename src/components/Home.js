@@ -32,7 +32,17 @@ export const Home = () => {
 			</div>
 		);
 	});
-
+	const loadingIcon = (
+		<div>
+			<center>
+				<br />
+				<div className="lds-ripple">
+					<div />
+					<div />
+				</div>
+			</center>
+		</div>
+	);
 	return (
 		<div className="">
 			<div className="block space-y-0 ">
@@ -40,7 +50,10 @@ export const Home = () => {
 					<div className="mx-4 pb-4 text-lg">Recently Added</div>
 					<center>
 						<div className="mx-4 gap-2 grid grid-cols-1 md:grid-cols-5">
-							{errorMsg ? errorMsg : displayData}
+							{errorMsg}
+							<div className={!errorMsg ? "contents" : "hidden"}>
+								{displayData ? displayData : loadingIcon}
+							</div>
 						</div>
 					</center>
 				</div>

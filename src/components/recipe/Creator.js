@@ -72,7 +72,7 @@ export const Creator = (props) => {
 	};
 	const items = ingredients.map((item, i) => {
 		return (
-			<div className="flex border-2 border-red-500 hover:border-red-700">
+			<div className="flex border-2 border-red-500 bg-white hover:border-red-700">
 				<input
 					className="flex-none w-8 bg-red-500 hover:bg-red-700 text-white md:text-center items-baseline text-lg"
 					type="submit"
