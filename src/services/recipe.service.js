@@ -14,7 +14,9 @@ const add = (obj, token) => {
 		data: {
 			...obj,
 		},
-	}).catch((err) => console.log(err));
+	}).then((resp) => {
+		return resp.data;
+	});
 };
 
 const get = (identifier) => {
@@ -27,17 +29,21 @@ const get = (identifier) => {
 		data: {
 			id: identifier,
 		},
-	}).catch((err) => console.log(err));
+	}).then((resp) => {
+		return resp.data;
+	});
 };
 
-const get_all = (page, limit) => {
+const get_all = (page, limit, category) => {
 	return axios({
-		url: RECIPE_API + `?page=${page}&limit=${limit}`,
+		url: RECIPE_API + `?page=${page}&limit=${limit}&category=${category}`,
 		method: "get",
 		headers: {
 			"content-type": "application/json",
 		},
-	}).catch((err) => console.log(err));
+	}).then((resp) => {
+		return resp.data;
+	});
 };
 export default {
 	add,

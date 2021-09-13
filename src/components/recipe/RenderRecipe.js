@@ -5,19 +5,22 @@ import { Link } from "react-router-dom";
 import { Ingredients } from "./Ingredients";
 import moment from "moment";
 import { get_recipe } from "../../actions/recipe";
-import { get_profile } from "../../actions/user";
 import ReactMarkdown from "react-markdown";
+import { Message } from "../Message";
 
 export const RenderRecipe = (x) => {
 	const identifier = x.match.params.slug;
 	const dispatch = useDispatch();
 	// const { user: currentUser } = useSelector((state) => state.auth);
-	const [User, setUser] = useState("");
 	const [Data, setData] = useState({
 		title: "",
 		steps: "",
 		details: {
-			created_by: "",
+			created_by: {
+				_id: "",
+				id: "",
+				fullName: "",
+			},
 			created: "",
 			updated_by: "",
 			updated_last: "",
@@ -28,13 +31,8 @@ export const RenderRecipe = (x) => {
 	useEffect(() => {
 		dispatch(get_recipe(identifier))
 			.then((res) => {
-				dispatch(get_profile(res.data.details.created_by)).then(
-					(res) => {
-						setUser(res.fullName);
-					}
-				);
-				setData({ ...res.data });
-				setIngredients(res.data.ingredients);
+				setData({ ...res });
+				setIngredients(res.ingredients);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -55,7 +53,9 @@ export const RenderRecipe = (x) => {
 						by{" "}
 					</div>
 
-					<Link to={`/u/${Data.details.created_by}`}>{User}</Link>
+					<Link to={`/u/${Data.details.created_by.id}`}>
+						{Data.details.created_by.fullName}
+					</Link>
 				</div>
 
 				<hr className="w-5/6 md:w-2/3" />
@@ -88,6 +88,7 @@ export const RenderRecipe = (x) => {
 	);
 	return (
 		<>
+			<Message />
 			<div>{Data.title.length > 1 ? displayData : loadingIcon}</div>
 		</>
 	);

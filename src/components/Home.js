@@ -9,13 +9,9 @@ export const Home = () => {
 	const [errorMsg, setError] = useState("");
 
 	useEffect(() => {
-		dispatch(get_all(1, 5))
-			.then((res) => {
-				setRecipes([...res.data]);
-			})
-			.catch(() => {
-				setError("No data available.");
-			});
+		dispatch(get_all(1, 5)).then((res) => {
+			setRecipes([...res]);
+		});
 	}, []);
 
 	const displayData = recipes.map((item, i) => {
