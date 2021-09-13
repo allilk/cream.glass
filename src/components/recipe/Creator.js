@@ -130,7 +130,18 @@ export const Creator = (props) => {
 									This field supports markdown!
 								</div>
 							</div>
-							<div className="row-span-auto col-span-full md:col-start-1 md:col-span-1">
+							<div className="row-span-3 col-span-full md:col-start-2 md:col-span-1">
+								<div className="mb-2">Category</div>
+								<div className="border-2 p-2 border-black bg-white">
+									<input
+										// onChange={}
+										className="w-full"
+										type="text"
+										required
+									></input>
+								</div>
+							</div>
+							<div className="md:-mt-6 row-span-3 col-span-full md:col-start-1 md:col-span-1">
 								<div className="mb-2">Ingredients</div>
 								<div className="flex border-2 border-black mb-2">
 									<input

@@ -46,10 +46,6 @@ export const get_recipe = (identifier) => (dispatch) => {
 		(response) => {
 			dispatch({ type: GET_RECIPE });
 
-			dispatch({
-				type: SET_MESSAGE,
-				payload: response.data.message,
-			});
 			return Promise.resolve(response);
 		},
 		(error) => {
@@ -63,7 +59,6 @@ export const get_recipe = (identifier) => (dispatch) => {
 			dispatch({
 				type: FAIL_TO_GET_RECIPE,
 			});
-
 			dispatch({
 				type: SET_MESSAGE,
 				payload: message,
@@ -73,15 +68,16 @@ export const get_recipe = (identifier) => (dispatch) => {
 		}
 	);
 };
-export const get_all = (page, limit) => (dispatch) => {
-	return RecipeService.get_all(page, limit).then(
+export const get_all = (page, limit, category) => (dispatch) => {
+	return RecipeService.get_all(page, limit, category).then(
 		(response) => {
 			dispatch({ type: GET_RECIPE });
 
 			dispatch({
 				type: SET_MESSAGE,
-				payload: response.data.message,
+				payload: response.message,
 			});
+
 			return Promise.resolve(response);
 		},
 		(error) => {
