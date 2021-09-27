@@ -4,6 +4,8 @@ import {
 	FAIL_TO_GET_RECIPE,
 	FAIL_TO_ADD_RECIPE,
 	GET_RECIPE,
+	GET_CATEGORIES,
+	FAILED_CATEGORIES,
 } from "./types";
 import RecipeService from "../services/recipe.service";
 
@@ -77,8 +79,7 @@ export const get_all = (page, limit, category) => (dispatch) => {
 				type: SET_MESSAGE,
 				payload: response.message,
 			});
-
-			return Promise.resolve(response);
+			return Promise.resolve(response.data.items);
 		},
 		(error) => {
 			const message =
@@ -90,6 +91,38 @@ export const get_all = (page, limit, category) => (dispatch) => {
 
 			dispatch({
 				type: FAIL_TO_GET_RECIPE,
+			});
+
+			dispatch({
+				type: SET_MESSAGE,
+				payload: message,
+			});
+
+			return Promise.reject();
+		}
+	);
+};
+export const get_categories = () => (dispatch) => {
+	return RecipeService.get_categories().then(
+		(response) => {
+			dispatch({ type: GET_CATEGORIES });
+
+			dispatch({
+				type: SET_MESSAGE,
+				payload: response.message,
+			});
+			return Promise.resolve(response.data.items);
+		},
+		(error) => {
+			const message =
+				(error.response &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+
+			dispatch({
+				type: FAILED_CATEGORIES,
 			});
 
 			dispatch({
