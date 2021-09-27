@@ -12,10 +12,8 @@ export const Login = (props) => {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	// const [message, setMessage] = useState("");
 
 	const { isLoggedIn } = useSelector((state) => state.auth);
-	const { message } = useSelector((state) => state.message);
 
 	const dispatch = useDispatch();
 
@@ -87,12 +85,6 @@ export const Login = (props) => {
 									Forgot password?
 								</Link>
 							</div>
-							{/* <input
-								type="submit"
-								className="rounded-full font-semibold px-8 py-2 bg-blue-300 hover:bg-blue-500"
-								ref={checkBtn}
-								value="Login"
-							/> */}
 							<br />
 							<input
 								type="submit"

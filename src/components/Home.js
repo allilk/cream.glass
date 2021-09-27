@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { get_all } from "../actions/recipe";
+import { Categories } from "./recipe/Categories";
 
 export const Home = () => {
 	const dispatch = useDispatch();
@@ -45,8 +46,11 @@ export const Home = () => {
 				<div className="pt-4">
 					<div className="mx-4 pb-4 text-lg">Recently Added</div>
 					<center>
+						<Categories />
+						<br />
 						<div className="mx-4 gap-2 grid grid-cols-1 md:grid-cols-5">
 							{errorMsg}
+
 							<div className={!errorMsg ? "contents" : "hidden"}>
 								{displayData ? displayData : loadingIcon}
 							</div>
