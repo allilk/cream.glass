@@ -5,7 +5,8 @@ import store from "./store";
 
 import { Header } from "./components/Header";
 
-import { RenderRecipe } from "./components/recipe/RenderRecipe";
+import { Recipe } from "./components/recipe/Recipe";
+import { Category } from "./components/recipe/Category";
 import { Creator } from "./components/recipe/Creator";
 import { Register } from "./components/Register";
 import { Login } from "./components/Login";
@@ -20,12 +21,21 @@ class App extends Component {
 					<div className="App">
 						<Header />
 						<Switch>
-							<Route path="/r/:slug" component={RenderRecipe} />
-							<Route path="/create" component={Creator} />
-							<Route path="/login" component={Login} />
-							<Route path="/register" component={Register} />
+							<Route
+								exact
+								path="/cat/:slug"
+								component={Category}
+							/>
+							<Route exact path="/create" component={Creator} />
+							<Route exact path="/login" component={Login} />
+							<Route
+								exact
+								path="/register"
+								component={Register}
+							/>
 							{/* <Route path="/profile" component={Profile}/> */}
-							<Route path="/" component={Home} />
+							<Route exact path="/" component={Home} />
+							<Route path="/:slug" component={Recipe} />
 						</Switch>
 					</div>
 				</Router>

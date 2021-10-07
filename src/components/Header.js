@@ -1,21 +1,18 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../actions/auth";
-import { history } from "./helpers/history";
 import { clearMessage } from "../actions/message";
 
 export const Header = () => {
 	const { user: currentUser } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
+	const location = useLocation();
 
 	useEffect(() => {
-		history.listen((location) => {
-			dispatch(clearMessage());
-		});
-	}, [dispatch]);
-
+		dispatch(clearMessage());
+	}, [location]);
 	const logOut = () => {
 		dispatch(logout());
 	};
