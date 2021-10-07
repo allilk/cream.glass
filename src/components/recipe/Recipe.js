@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { Ingredients } from "./Ingredients";
 import moment from "moment";
-import { get_recipe } from "../../actions/recipe";
 import ReactMarkdown from "react-markdown";
+
+import { Ingredients } from "./Ingredients";
 import { Message } from "../Message";
 
-export const RenderRecipe = (x) => {
+import { get_recipe } from "../../actions/recipe";
+
+export const Recipe = (x) => {
 	const identifier = x.match.params.slug;
 	const dispatch = useDispatch();
 	// const { user: currentUser } = useSelector((state) => state.auth);
 	const [Data, setData] = useState({
-		title: "",
+		name: "",
 		steps: "",
 		details: {
 			created_by: {
@@ -40,8 +42,8 @@ export const RenderRecipe = (x) => {
 	}, []);
 	const displayData = (
 		<div className="">
-			<div id="title" className="my-4 text-4xl text-center">
-				{Data.title}
+			<div id="name" className="my-4 text-4xl text-center">
+				{Data.name}
 			</div>
 			<center>
 				<div className="text-gray-500 text-sm my-2 ">
@@ -89,7 +91,7 @@ export const RenderRecipe = (x) => {
 	return (
 		<>
 			<Message />
-			<div>{Data.title.length > 1 ? displayData : loadingIcon}</div>
+			<div>{Data.name.length > 1 ? displayData : loadingIcon}</div>
 		</>
 	);
 };

@@ -6,84 +6,93 @@ import { useDispatch, useSelector } from "react-redux";
 import { add_recipe } from "../../actions/recipe";
 
 export const Creator = (props) => {
-	let ingredientVal,
-		measureVal = "cups",
-		amountVal = "1";
-
 	const { user: currentUser } = useSelector((state) => state.auth);
-	if (!currentUser) {
-		return <Redirect to="/login" />;
-	}
+	// if (!currentUser) {
+	// 	return <Redirect to="/login" />;
+	// }
 	const token = currentUser.token;
-
-	const [ingredients, setIngredients] = useState([]);
-	const [name, setName] = useState("");
-	const [desc, setDescription] = useState("");
-	const [steps, setSteps] = useState("");
-
 	const dispatch = useDispatch();
 
-	const onChangeVal = (e) => {
-		ingredientVal = e.target.value;
+	const [recipe, setRecipe] = useState({
+		name: "",
+		description: "",
+		category: "",
+		ingredients: [],
+		steps: [],
+	});
+	const handleChange = (event) => {
+		const key = event.target.name;
+		const value = event.target.value;
+
+		setRecipe({
+			...recipe,
+			[key]: value,
+		});
 	};
-	const onChangeMeasure = (e) => {
-		measureVal = e.target.value;
+
+	// Ingredient array stuff
+	const [ingredient, setIngredient] = useState({
+		name: "",
+		amount: 1,
+		measure: "tsp",
+	});
+	const handleIngredient = (event) => {
+		const key = event.target.name;
+		const value = event.target.value;
+		setIngredient({ ...ingredient, [key]: value });
 	};
-	const onChangeAmount = (e) => {
-		amountVal = e.target.value;
-	};
-	const onChangeName = (e) => {
-		setName(e.target.value);
-	};
-	const onChangeDesc = (e) => {
-		setDescription(e.target.value);
-	};
-	const onChangeSteps = (e) => {
-		setSteps(e.target.value);
-	};
-	const handleAdd = (e) => {
-		e.preventDefault();
-		if (ingredientVal) {
-			setIngredients([
-				...ingredients,
-				{
-					amount: `${amountVal} ${measureVal}`,
-					name: ingredientVal,
-				},
-			]);
+	const handleAdd = (event) => {
+		event.preventDefault();
+
+		if (ingredient) {
+			setRecipe({
+				...recipe,
+				ingredients: [
+					...recipe.ingredients,
+					{
+						name: ingredient.name,
+						amount: ingredient.amount,
+						measure: ingredient.measure,
+					},
+				],
+			});
 		}
 	};
 	const handleDel = (i) => {
-		setIngredients(
-			ingredients.filter((val, index) => {
+		setRecipe({
+			...recipe,
+			ingredients: recipe.ingredients.filter((val, index) => {
 				return index != i;
-			})
-		);
+			}),
+		});
 	};
-	const handleRecipe = (e) => {
-		e.preventDefault();
-
-		dispatch(
-			add_recipe({ title: name, steps: desc, ingredients }, token)
-		).then((x) => {
-			props.history.push(`/r/${x.id}`);
+	// Submit function
+	const submitRecipe = (event) => {
+		event.preventDefault();
+		dispatch(add_recipe(recipe, token)).then((x) => {
+			props.history.push(`/${x.id}`);
 			window.location.reload();
 		});
 	};
-	const items = ingredients.map((item, i) => {
+
+	const items = recipe.ingredients.map((item, i) => {
 		return (
-			<div className="flex border-2 border-red-500 bg-white hover:border-red-700">
+			<div
+				key={i}
+				className="flex border-2 border-red-500 bg-white hover:border-red-700"
+			>
 				<input
 					className="flex-none w-8 bg-red-500 hover:bg-red-700 text-white md:text-center items-baseline text-lg"
 					type="submit"
-					onClick={() => {
+					onClick={(event) => {
+						event.preventDefault();
 						handleDel(i);
 					}}
 					value="x"
 				/>
 
-				<div key={i} className="flex-grow p-2">
-					{item.amount} of {item.name}
+				<div className="flex-grow p-2">
+					{item.amount} {item.measure} of {item.name}
 				</div>
 			</div>
 		);
@@ -99,7 +108,7 @@ export const Creator = (props) => {
 					</div>
 					<br />
 					<div className="text-sm grid grid-cols-2 grid-rows-8 space-y-2 md:space-y-0 gap-2">
-						<form className="contents" onSubmit={handleRecipe}>
+						<form className="contents" onSubmit={submitRecipe}>
 							<div className="md:row-span-3 col-span-full md:col-span-1">
 								<div className="h-full border-2 border-black">
 									<div className="">image</div>
@@ -109,7 +118,8 @@ export const Creator = (props) => {
 								<div className="mb-2">Name</div>
 								<div className="border-2 p-2 border-black bg-white">
 									<input
-										onChange={onChangeName}
+										name="name"
+										onChange={handleChange}
 										className="w-full"
 										type="text"
 										required
@@ -120,7 +130,8 @@ export const Creator = (props) => {
 								<div className="mb-2">Steps</div>
 								<div className="border-2 border-black ">
 									<textarea
-										onChange={onChangeDesc}
+										name="steps"
+										onChange={handleChange}
 										rows="7"
 										className="p-2 w-full"
 										required
@@ -134,7 +145,8 @@ export const Creator = (props) => {
 								<div className="mb-2">Category</div>
 								<div className="border-2 p-2 border-black bg-white">
 									<input
-										// onChange={}
+										name="category"
+										onChange={handleChange}
 										className="w-full"
 										type="text"
 										required
@@ -145,13 +157,18 @@ export const Creator = (props) => {
 								<div className="mb-2">Ingredients</div>
 								<div className="flex border-2 border-black mb-2">
 									<input
+										id="ingredients"
 										className="flex-none border-2 border-black w-8 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-xl"
 										type="submit"
 										onClick={handleAdd}
 										value="+"
 									/>
 									<div className="contents">
-										<select onChange={onChangeAmount}>
+										<select
+											name="amount"
+											onChange={handleIngredient}
+											value={ingredient.amount}
+										>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -162,7 +179,11 @@ export const Creator = (props) => {
 											<option value="8">8</option>
 											<option value="9">9</option>
 										</select>
-										<select onChange={onChangeMeasure}>
+										<select
+											name="measure"
+											onChange={handleIngredient}
+											value={ingredient.measure}
+										>
 											<option value="tsp">tsp</option>
 											<option value="Tbsp">Tbsp</option>
 											<option value="cups">cups</option>
@@ -172,8 +193,10 @@ export const Creator = (props) => {
 											<option value="scoop">scoop</option>
 										</select>
 										<input
+											name="name"
+											value={ingredient.name}
 											className="flex-grow p-2"
-											onChange={onChangeVal}
+											onChange={handleIngredient}
 											type="text"
 											required
 										></input>

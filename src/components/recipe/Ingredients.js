@@ -4,7 +4,9 @@ export const Ingredients = (x) => {
 	const ingredients = x.arr.map((item, i) => {
 		return (
 			<div key={i} className="space-x-4">
-				<div className="inline font-semibold">{item.amount}</div>
+				<div className="inline font-semibold">
+					{item.amount} {item.measure}
+				</div>
 				<div className="inline">{item.name}</div>
 			</div>
 		);

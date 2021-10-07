@@ -1,5 +1,5 @@
 import axios from "axios";
-import ReactMarkdown from "react-markdown";
+
 import { API_URL } from "./service.vals";
 
 const RECIPE_API = API_URL + "/recipe/";
@@ -17,8 +17,6 @@ const add = (obj, token) => {
 		data: {
 			...obj,
 		},
-	}).then((resp) => {
-		return resp.data;
 	});
 };
 
@@ -31,7 +29,7 @@ const get = (identifier) => {
 			id: identifier,
 		},
 	}).then((resp) => {
-		return resp.data;
+		return resp;
 	});
 };
 

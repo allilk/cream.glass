@@ -23,12 +23,12 @@ export const Categories = () => {
 			});
 	}, []);
 	const displayData = categories.map((item, i) => {
-		item.name = convertName(item.name);
+		const formattedName = convertName(item.name);
 		return (
 			<div key={i} className="contents">
-				<Link to={`/cat/${item.id}`}>
+				<Link to={`/cat/${item.name}`}>
 					<div className="col-span-1 bg-white rounded-md py-2">
-						{item.name}
+						{formattedName}
 					</div>
 				</Link>
 			</div>
