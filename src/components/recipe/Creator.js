@@ -17,7 +17,6 @@ export const Creator = (props) => {
 		name: "",
 		description: "",
 		category: "",
-		image: {},
 		ingredients: [],
 		steps: [],
 	});
