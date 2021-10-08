@@ -17,13 +17,13 @@ export const Creator = (props) => {
 		name: "",
 		description: "",
 		category: "",
+		image: {},
 		ingredients: [],
 		steps: [],
 	});
 	const handleChange = (event) => {
 		const key = event.target.name;
 		const value = event.target.value;
-
 		setRecipe({
 			...recipe,
 			[key]: value,
@@ -66,9 +66,15 @@ export const Creator = (props) => {
 			}),
 		});
 	};
+	const fileSelected = (event) => {
+		const file = event.target.files[0];
+		setRecipe({ ...recipe, image: file });
+	};
+
 	// Submit function
 	const submitRecipe = (event) => {
 		event.preventDefault();
+
 		dispatch(add_recipe(recipe, token)).then((x) => {
 			props.history.push(`/${x.id}`);
 			window.location.reload();
@@ -111,7 +117,12 @@ export const Creator = (props) => {
 						<form className="contents" onSubmit={submitRecipe}>
 							<div className="md:row-span-3 col-span-full md:col-span-1">
 								<div className="h-full border-2 border-black">
-									<div className="">image</div>
+									<input
+										onChange={fileSelected}
+										type="file"
+										name="image"
+										accept="image/*"
+									/>
 								</div>
 							</div>
 							<div className="row-span-1 col-span-full md:col-span-1">

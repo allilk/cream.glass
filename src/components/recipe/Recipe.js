@@ -16,6 +16,7 @@ export const Recipe = (x) => {
 	// const { user: currentUser } = useSelector((state) => state.auth);
 	const [Data, setData] = useState({
 		name: "",
+		image: "",
 		steps: "",
 		details: {
 			created_by: {
@@ -42,6 +43,9 @@ export const Recipe = (x) => {
 	}, []);
 	const displayData = (
 		<div className="">
+			<center>
+				<img src={Data.image} />
+			</center>
 			<div id="name" className="my-4 text-4xl text-center">
 				{Data.name}
 			</div>
