@@ -20,7 +20,8 @@ const add = async (obj, token) => {
 		return response.data.key;
 	};
 	if (obj.image) {
-		obj.image = await uploadImage();
+		const image = await uploadImage();
+		obj.image = image;
 	}
 	return axios({
 		url: RECIPE_API + "new",
@@ -45,13 +46,15 @@ const get = (identifier) => {
 		},
 	}).then(async (recipe) => {
 		const imageKey = recipe.data.image;
-		const response = await axios({
-			url: API_URL + "/image/get",
-			method: "post",
-			data: { fileKey: imageKey },
-		});
+		if (imageKey) {
+			const response = await axios({
+				url: API_URL + "/image/get",
+				method: "post",
+				data: { fileKey: imageKey },
+			});
 
-		recipe.data.image = response.data.url;
+			recipe.data.image = response.data.url;
+		}
 		return recipe;
 	});
 };
