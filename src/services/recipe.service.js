@@ -1,12 +1,27 @@
 import axios from "axios";
 
 import { API_URL } from "./service.vals";
-
 const RECIPE_API = API_URL + "/recipe/";
 const defaultHeaders = {
 	"content-type": "application/json",
 };
-const add = (obj, token) => {
+const add = async (obj, token) => {
+	const uploadImage = async () => {
+		const formData = new FormData();
+		formData.append("file", obj.image);
+		const response = await axios({
+			url: API_URL + "/image/upload",
+			method: "post",
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+			data: formData,
+		});
+		return response.data.key;
+	};
+	if (obj.image) {
+		obj.image = await uploadImage();
+	}
 	return axios({
 		url: RECIPE_API + "new",
 		method: "post",
@@ -28,8 +43,16 @@ const get = (identifier) => {
 		data: {
 			id: identifier,
 		},
-	}).then((resp) => {
-		return resp;
+	}).then(async (recipe) => {
+		const imageKey = recipe.data.image;
+		const response = await axios({
+			url: API_URL + "/image/get",
+			method: "post",
+			data: { fileKey: imageKey },
+		});
+
+		recipe.data.image = response.data.url;
+		return recipe;
 	});
 };
 
