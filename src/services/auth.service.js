@@ -3,26 +3,25 @@ import { API_URL } from "./service.vals";
 
 const AUTH_API = API_URL + "/auth/";
 
-const register = async (username, email, password) => {
-	return axios.post(AUTH_API + "register", {
-		fullName: username,
+const register = async (fullName, email, password) => {
+	return await axios.post(AUTH_API + "register", {
+		fullName,
 		email,
 		password,
 	});
 };
 
-const login = async (username, password) => {
-	return axios
+const login = async (email, password) => {
+	return await axios
 		.post(AUTH_API + "login", {
-			email: username,
+			email,
 			password,
 		})
 		.then((response) => {
-			if (response.data.token) {
+			if (response.data.accessToken) {
 				localStorage.setItem("user", JSON.stringify(response.data));
 			}
-
-			return response.data;
+			return response;
 		});
 };
 

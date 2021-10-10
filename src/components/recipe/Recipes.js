@@ -4,8 +4,7 @@ import { useDispatch } from "react-redux";
 import { get_all } from "../../actions/recipe";
 
 export const Recipes = (props) => {
-	const from = props.from;
-	const to = props.to;
+	const { from, to } = props;
 	const category = props.category || "";
 
 	const dispatch = useDispatch();

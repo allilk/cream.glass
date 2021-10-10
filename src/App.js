@@ -8,8 +8,8 @@ import { Header } from "./components/Header";
 import { Recipe } from "./components/recipe/Recipe";
 import { Category } from "./components/recipe/Category";
 import { Creator } from "./components/recipe/Creator";
-import { Register } from "./components/Register";
-import { Login } from "./components/Login";
+import { Register } from "./components/auth/Register";
+import { Login } from "./components/auth/Login";
 import { Home } from "./components/Home";
 // import { Profile } from "./components/Profile"
 
