@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { register, login } from "../actions/auth";
-import { Message } from "./Message";
+import { register, login } from "../../actions/auth";
+import { Message } from "../Message";
 
 export const Register = (props) => {
 	const checkBtn = useRef();

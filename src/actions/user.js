@@ -1,6 +1,7 @@
 import { FAIL_TO_GET_PROFILE, GET_PROFILE, SET_MESSAGE } from "./types";
 
 import UserService from "../services/user.service";
+import { ifError, dispatchError } from "./error";
 
 export const get_profile = (identifier) => (dispatch) => {
 	return UserService.get(identifier).then(

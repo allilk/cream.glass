@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
-import { login } from "../actions/auth";
-import { Message } from "./Message";
+import { login } from "../../actions/auth";
+import { Message } from "../Message";
 
 export const Login = (props) => {
 	const { register, handleSubmit } = useForm();
