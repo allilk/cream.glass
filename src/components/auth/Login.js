@@ -1,49 +1,39 @@
-import React, { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { useForm } from "react-hook-form";
 import { login } from "../../actions/auth";
 import { Message } from "../Message";
 
 export const Login = (props) => {
-	const { register, handleSubmit } = useForm();
-	const checkBtn = useRef();
-
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-
-	const { isLoggedIn } = useSelector((state) => state.auth);
-
 	const dispatch = useDispatch();
 
-	const onChangeEmail = (e) => {
-		const email = e.target.value;
-		setEmail(email);
-	};
+	const [form, setForm] = useState({
+		email: "",
+		password: "",
+	});
 
-	const onChangePassword = (e) => {
-		const password = e.target.value;
-		setPassword(password);
+	const handleChange = (event) => {
+		const key = event.target.name;
+		const value = event.target.value;
+		setForm({
+			...form,
+			[key]: value,
+		});
 	};
 
 	const handleLogin = (e) => {
 		e.preventDefault();
-
-		dispatch(login(email, password)).then(() => {
+		dispatch(login(...Object.values(form))).then(() => {
 			props.history.push("/");
 			window.location.reload();
 		});
 	};
 
-	if (isLoggedIn) {
-		return <Redirect to="/" />;
-	}
 	return (
 		<div>
 			<center>
 				<Message />
-
 				<div className="border-2 border-blue-300 w-5/6 md:w-1/4 h-auto bg-white rounded-md">
 					<br />
 					<div className="text-4xl mb-6 tracking-widest">LOGIN</div>
@@ -55,10 +45,8 @@ export const Login = (props) => {
 							<div>
 								<input
 									className="border-2 border-blue-300 rounded px-4 py-1"
-									{...register("email", {
-										required: true,
-									})}
-									onChange={onChangeEmail}
+									name="email"
+									onChange={handleChange}
 									type="email"
 									required
 								/>
@@ -70,12 +58,9 @@ export const Login = (props) => {
 							<div>
 								<input
 									className="border-2 border-blue-300 rounded px-4 py-1"
-									{...register("password", {
-										required: true,
-										maxLength: 20,
-									})}
+									name="password"
 									placeholder="Password"
-									onChange={onChangePassword}
+									onChange={handleChange}
 									type="password"
 									required
 								/>
@@ -89,7 +74,6 @@ export const Login = (props) => {
 							<input
 								type="submit"
 								className=" font-semibold w-full py-4 bg-blue-300 -mb-12 hover:bg-blue-500 "
-								ref={checkBtn}
 								value="Login"
 							/>
 						</form>

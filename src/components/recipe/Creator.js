@@ -10,7 +10,7 @@ export const Creator = (props) => {
 	// if (!currentUser) {
 	// 	return <Redirect to="/login" />;
 	// }
-	const token = currentUser.token;
+	const { accessToken } = currentUser;
 	const dispatch = useDispatch();
 
 	const [recipe, setRecipe] = useState({
@@ -74,7 +74,7 @@ export const Creator = (props) => {
 	const submitRecipe = (event) => {
 		event.preventDefault();
 
-		dispatch(add_recipe(recipe, token)).then((x) => {
+		dispatch(add_recipe(recipe, accessToken)).then((x) => {
 			props.history.push(`/${x.id}`);
 			window.location.reload();
 		});

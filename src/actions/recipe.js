@@ -51,8 +51,8 @@ export const get_recipe = (identifier) => (dispatch) => {
 		}
 	});
 };
-export const add_recipe = (obj, token) => (dispatch) => {
-	return RecipeService.add(obj, token).then((response) => {
+export const add_recipe = (obj, accessToken) => (dispatch) => {
+	return RecipeService.add(obj, accessToken).then((response) => {
 		if (!ifError(response.status)) {
 			dispatch({ type: ADD_RECIPE });
 

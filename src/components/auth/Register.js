@@ -1,31 +1,25 @@
-import React, { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { register, login } from "../../actions/auth";
+import { register } from "../../actions/auth";
 import { Message } from "../Message";
 
 export const Register = (props) => {
-	const checkBtn = useRef();
-
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [successful, setSuccessful] = useState(false);
-
-	const { isLoggedIn } = useSelector((state) => state.auth);
-
 	const dispatch = useDispatch();
+	const [form, setForm] = useState({
+		fullName: "",
+		email: "",
+		password: "",
+	});
 
-	const onChangeName = (e) => {
-		const name = e.target.value;
-		setName(name);
+	const handleChange = (event) => {
+		const key = event.target.name;
+		const value = event.target.value;
+		setForm({
+			...form,
+			[key]: value,
+		});
 	};
-
-	const onChangeEmail = (e) => {
-		const email = e.target.value;
-		setEmail(email);
-	};
-
 	const onChangePassword = (e) => {
 		const password = e.target.value;
 		setPassword(password);
@@ -35,18 +29,10 @@ export const Register = (props) => {
 	};
 	const handleRegister = (e) => {
 		e.preventDefault();
-		setSuccessful(false);
-
-		dispatch(register(name, email, password))
-			.then(() => {
-				setSuccessful(true);
-				props.history.push("/login");
-				window.location.reload();
-			})
-
-			.catch(() => {
-				setSuccessful(false);
-			});
+		dispatch(register(...Object.values(form))).then(() => {
+			props.history.push("/login");
+			window.location.reload();
+		});
 	};
 
 	return (
@@ -67,11 +53,8 @@ export const Register = (props) => {
 								<div>
 									<input
 										className="border-2 border-blue-300 rounded px-4 py-1"
-										{...register("name", {
-											required: true,
-											maxLength: 48,
-										})}
-										onChange={onChangeName}
+										name="fullName"
+										onChange={handleChange}
 										type="text"
 										maxLength="48"
 										required
@@ -88,11 +71,8 @@ export const Register = (props) => {
 								<div>
 									<input
 										className="border-2 border-blue-300 rounded px-4 py-1"
-										{...register("email", {
-											required: true,
-											maxLength: 64,
-										})}
-										onChange={onChangeEmail}
+										name="email"
+										onChange={handleChange}
 										type="email"
 										maxLength="64"
 										required
@@ -106,11 +86,8 @@ export const Register = (props) => {
 								<div>
 									<input
 										className="border-2 border-blue-300 rounded px-4 py-1"
-										{...register("password", {
-											required: true,
-											maxLength: 16,
-										})}
-										onChange={onChangePassword}
+										name="password"
+										onChange={handleChange}
 										type="password"
 										maxLength="16"
 										required
@@ -124,10 +101,6 @@ export const Register = (props) => {
 								<div>
 									<input
 										className="border-2 border-blue-300 rounded px-4 py-1"
-										{...register("password", {
-											required: true,
-											maxLength: 16,
-										})}
 										onChange={onChangePassword}
 										type="password"
 										maxLength="16"
@@ -139,7 +112,6 @@ export const Register = (props) => {
 							<input
 								type="submit"
 								className=" font-semibold w-full py-4 bg-blue-300 -mb-12 hover:bg-blue-500 "
-								ref={checkBtn}
 								value="Register"
 							/>
 						</form>

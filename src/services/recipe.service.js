@@ -7,7 +7,7 @@ const defaultHeaders = {
 	"content-type": "application/json",
 };
 
-const add = async (obj, token) => {
+const add = async (obj, accessToken) => {
 	const uploadImage = async () => {
 		const formData = new FormData();
 		formData.append("file", obj.image);
@@ -34,7 +34,7 @@ const add = async (obj, token) => {
 		method: "post",
 		headers: {
 			...defaultHeaders,
-			Authorization: `JWT ${token}`,
+			Authorization: `JWT ${accessToken}`,
 		},
 		data: {
 			...obj,

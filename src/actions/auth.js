@@ -4,42 +4,49 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
-	SET_MESSAGE,
 } from "./types";
 
 import AuthService from "../services/auth.service";
-import { ifError, dispatchError } from "./error";
+import { dispatchError } from "./error";
 
-export const register = (username, email, password) => (dispatch) => {
-	return AuthService.register(username, email, password).then(
+export const login = (email, password) => (dispatch) => {
+	return AuthService.login(email, password).then(
 		(response) => {
 			dispatch({
-				type: REGISTER_SUCCESS,
-			});
-
-			dispatch({
-				type: SET_MESSAGE,
-				payload: response.data.message,
+				type: LOGIN_SUCCESS,
+				payload: { user: response.data },
 			});
 
 			return Promise.resolve();
 		},
 		(error) => {
-			const message =
-				(error.response &&
-					error.response.data &&
-					error.response.data.message) ||
-				error.message ||
-				error.toString();
-
+			dispatch({ type: LOGIN_FAIL });
+			dispatchError(
+				dispatch,
+				error.response.status,
+				error.response.data.message
+			);
+			return Promise.reject();
+		}
+	);
+};
+export const register = (fullName, email, password) => (dispatch) => {
+	return AuthService.register(fullName, email, password).then(
+		(response) => {
 			dispatch({
-				type: REGISTER_FAIL,
+				type: REGISTER_SUCCESS,
+				payload: { user: response.data.user },
 			});
 
-			dispatch({
-				type: SET_MESSAGE,
-				payload: message,
-			});
+			return Promise.resolve();
+		},
+		(error) => {
+			dispatch({ type: REGISTER_FAIL });
+			dispatchError(
+				dispatch,
+				error.response.status,
+				error.response.data.message
+			);
 
 			return Promise.reject();
 		}
@@ -51,20 +58,5 @@ export const logout = () => (dispatch) => {
 
 	dispatch({
 		type: LOGOUT,
-	});
-};
-
-export const login = (username, password) => (dispatch) => {
-	return AuthService.login(username, password).then((response) => {
-		if (!ifError(response.status)) {
-			dispatch({ type: LOGIN_SUCCESS, payload: { user: response.data } });
-
-			return Promise.resolve();
-		} else {
-			dispatch({ type: LOGIN_FAIL });
-			dispatchError(dispatch, response.status, response.statusText);
-
-			return Promise.reject();
-		}
 	});
 };
