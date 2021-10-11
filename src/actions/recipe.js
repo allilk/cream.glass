@@ -55,8 +55,7 @@ export const add_recipe = (obj, accessToken) => (dispatch) => {
 	return RecipeService.add(obj, accessToken).then((response) => {
 		if (!ifError(response.status)) {
 			dispatch({ type: ADD_RECIPE });
-
-			return Promise.resolve(response.data);
+			return Promise.resolve(response.data.item);
 		} else {
 			dispatch({ type: FAIL_TO_ADD_RECIPE });
 			dispatchError(dispatch, response.status, response.statusText);

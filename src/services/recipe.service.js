@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { API_URL } from "./service.vals";
 
-const RECIPE_API = API_URL + "/recipe/";
+const RECIPE_API = API_URL + "/recipe";
 const defaultHeaders = {
 	"content-type": "application/json",
 };
@@ -16,7 +16,7 @@ const add = async (obj, accessToken) => {
 			url: API_URL + "/image/upload",
 			method: "post",
 			headers: {
-				Authorization: `JWT ${token}`,
+				Authorization: `Bearer ${accessToken}`,
 			},
 			data: formData,
 		});
@@ -30,11 +30,11 @@ const add = async (obj, accessToken) => {
 	}
 
 	return await axios({
-		url: RECIPE_API + "new",
+		url: RECIPE_API + "/new",
 		method: "post",
 		headers: {
 			...defaultHeaders,
-			Authorization: `JWT ${accessToken}`,
+			Authorization: `Bearer ${accessToken}`,
 		},
 		data: {
 			...obj,
@@ -44,7 +44,7 @@ const add = async (obj, accessToken) => {
 
 const get = async (identifier) => {
 	return await axios({
-		url: RECIPE_API + "get",
+		url: RECIPE_API + "/get",
 		method: "post",
 		headers: defaultHeaders,
 		data: {
