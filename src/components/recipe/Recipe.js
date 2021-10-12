@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 
 import { Ingredients } from "./Ingredients";
 import { Message } from "../Message";
+import { Header } from "./Header";
 
 import { get_recipe } from "../../actions/recipe";
 
@@ -43,6 +44,10 @@ export const Recipe = () => {
 	}, []);
 	const displayData = (
 		<div className="">
+			<Header
+				createdBy={Data.details.created_by._id}
+				recipeId={recipeId}
+			/>
 			<center>
 				<img src={Data.image} />
 			</center>

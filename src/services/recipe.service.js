@@ -7,7 +7,7 @@ const defaultHeaders = {
 	"content-type": "application/json",
 };
 
-const add = async (obj, accessToken) => {
+const addRecipe = async (obj, accessToken) => {
 	const uploadImage = async () => {
 		const formData = new FormData();
 		formData.append("file", obj.image);
@@ -42,7 +42,7 @@ const add = async (obj, accessToken) => {
 	});
 };
 
-const get = async (identifier) => {
+const getRecipe = async (identifier) => {
 	return await axios({
 		url: RECIPE_API + "/get",
 		method: "post",
@@ -72,8 +72,19 @@ const get = async (identifier) => {
 		return recipe;
 	});
 };
-
-const get_all = async (page, limit, category) => {
+const deleteRecipe = async (identifier, accessToken) => {
+	return await axios({
+		url: RECIPE_API + "/delete",
+		method: "post",
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+		},
+		data: {
+			id: identifier,
+		},
+	});
+};
+const getAll = async (page, limit, category) => {
 	let ifCategory = "";
 
 	if (category) {
@@ -87,7 +98,7 @@ const get_all = async (page, limit, category) => {
 	});
 };
 
-const get_categories = async () => {
+const getCategories = async () => {
 	return await axios({
 		url: API_URL + "/category",
 		method: "get",
@@ -95,8 +106,9 @@ const get_categories = async () => {
 	});
 };
 export default {
-	add,
-	get,
-	get_all,
-	get_categories,
+	addRecipe,
+	getRecipe,
+	deleteRecipe,
+	getAll,
+	getCategories,
 };

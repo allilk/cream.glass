@@ -151,13 +151,6 @@ export const Creator = (props) => {
 							<div className="row-span-3 col-span-full md:col-start-2 md:col-span-1">
 								<div className="mb-2">Category</div>
 								<div className="border-2 p-2 border-black bg-white">
-									{/* <input
-										name="category"
-										onChange={handleChange}
-										className="w-full"
-										type="text"
-										required
-									></input> */}
 									<select
 										name="category"
 										onChange={handleChange}
@@ -174,7 +167,9 @@ export const Creator = (props) => {
 										<option value="cider">Cider</option>
 										<option value="beer">Beer</option>
 										<option value="wine">Wine</option>
-										<option value="spirits">Spirits</option>
+										<option value="cocktails">
+											Cocktails
+										</option>
 									</select>
 								</div>
 							</div>
@@ -183,7 +178,7 @@ export const Creator = (props) => {
 								<div className="flex border-2 border-black mb-2">
 									<input
 										id="ingredients"
-										className="flex-none border-2 border-black w-8 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-xl"
+										className="flex-none border-2 border-black w-8 bg-black hover:bg-gray-700 text-white md:text-center items-baseline text-xl cursor-pointer"
 										type="submit"
 										onClick={handleAdd}
 										value="+"
@@ -235,7 +230,7 @@ export const Creator = (props) => {
 								<center>
 									<input
 										type="submit"
-										className=" rounded-full font-semibold w-1/2 py-2 my-4 bg-blue-300 hover:bg-blue-500 "
+										className=" rounded-full font-semibold w-1/2 py-2 my-4 bg-blue-300 hover:bg-blue-500 cursor-pointer"
 										value="CREATE"
 									/>
 								</center>

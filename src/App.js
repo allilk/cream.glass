@@ -24,7 +24,7 @@ class App extends Component {
 						<Switch>
 							<Route
 								exact
-								path="/cat/:categoryId"
+								path="/c/:categoryId"
 								component={Category}
 							/>
 							<AuthRoute

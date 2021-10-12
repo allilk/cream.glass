@@ -26,7 +26,7 @@ export const Categories = () => {
 		const formattedName = convertName(item.name);
 		return (
 			<div key={i} className="contents">
-				<Link to={`/cat/${item.name}`}>
+				<Link to={`/c/${item.name}`}>
 					<div className="col-span-1 bg-white rounded-md py-2">
 						{formattedName}
 					</div>

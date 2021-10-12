@@ -42,6 +42,7 @@ export const Register = (props) => {
 	return (
 		<div>
 			<Message />
+			<br />
 			<center>
 				<div className="border-2 border-blue-300 mx-6 md:mx-0 md:w-1/4 h-auto bg-white rounded-md">
 					<br />
@@ -115,7 +116,7 @@ export const Register = (props) => {
 							<br />
 							<input
 								type="submit"
-								className=" font-semibold w-full py-4 bg-blue-300 -mb-12 hover:bg-blue-500 "
+								className=" font-semibold w-full py-4 bg-blue-300 -mb-12 hover:bg-blue-500 cursor-pointer"
 								value="Register"
 							/>
 						</form>
