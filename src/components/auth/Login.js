@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { login } from "../../actions/auth";
 import { Message } from "../Message";
 
 export const Login = (props) => {
+	const { isLoggedIn: auth } = useSelector((state) => state.auth);
+	if (auth) {
+		props.history.push("/");
+	}
 	const dispatch = useDispatch();
-
 	const [form, setForm] = useState({
 		email: "",
 		password: "",

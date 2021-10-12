@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import moment from "moment";
 import ReactMarkdown from "react-markdown";
@@ -10,8 +10,8 @@ import { Message } from "../Message";
 
 import { get_recipe } from "../../actions/recipe";
 
-export const Recipe = (x) => {
-	const identifier = x.match.params.slug;
+export const Recipe = () => {
+	const { recipeId } = useParams();
 	const dispatch = useDispatch();
 	// const { user: currentUser } = useSelector((state) => state.auth);
 	const [Data, setData] = useState({
@@ -32,7 +32,7 @@ export const Recipe = (x) => {
 	const [ingredients, setIngredients] = useState([{}]);
 
 	useEffect(() => {
-		dispatch(get_recipe(identifier))
+		dispatch(get_recipe(recipeId))
 			.then((res) => {
 				setData({ ...res });
 				setIngredients(res.ingredients);

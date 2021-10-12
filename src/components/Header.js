@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/auth";
 import { clearMessage } from "../actions/message";
 
-export const Header = () => {
+export const Header = (props) => {
 	const { user: currentUser } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const location = useLocation();

@@ -1,22 +1,19 @@
 import React, { useState } from "react";
-import { Message } from "../Message";
-import { Redirect } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
+
+import { Message } from "../Message";
+
 import { add_recipe } from "../../actions/recipe";
 
 export const Creator = (props) => {
 	const { user: currentUser } = useSelector((state) => state.auth);
-	// if (!currentUser) {
-	// 	return <Redirect to="/login" />;
-	// }
 	const { accessToken } = currentUser;
 	const dispatch = useDispatch();
 
 	const [recipe, setRecipe] = useState({
 		name: "",
 		description: "",
-		category: "",
+		category: "soft_drinks",
 		ingredients: [],
 		steps: [],
 	});
@@ -154,13 +151,31 @@ export const Creator = (props) => {
 							<div className="row-span-3 col-span-full md:col-start-2 md:col-span-1">
 								<div className="mb-2">Category</div>
 								<div className="border-2 p-2 border-black bg-white">
-									<input
+									{/* <input
 										name="category"
 										onChange={handleChange}
 										className="w-full"
 										type="text"
 										required
-									></input>
+									></input> */}
+									<select
+										name="category"
+										onChange={handleChange}
+										className="w-full"
+										required
+									>
+										<option value="soft_drinks">
+											Soft Drinks
+										</option>
+										<option value="juice">Juice</option>
+										<option value="tea">Tea</option>
+										<option value="coffee">Coffee</option>
+										<option value="shake">Shake</option>
+										<option value="cider">Cider</option>
+										<option value="beer">Beer</option>
+										<option value="wine">Wine</option>
+										<option value="spirits">Spirits</option>
+									</select>
 								</div>
 							</div>
 							<div className="md:-mt-6 row-span-3 col-span-full md:col-start-1 md:col-span-1">

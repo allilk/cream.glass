@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { register } from "../../actions/auth";
 import { Message } from "../Message";
 
 export const Register = (props) => {
+	const { isLoggedIn: auth } = useSelector((state) => state.auth);
+	if (auth) {
+		props.history.push("/");
+	}
 	const dispatch = useDispatch();
 	const [form, setForm] = useState({
 		fullName: "",
