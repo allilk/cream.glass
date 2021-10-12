@@ -1,9 +1,10 @@
+import React from "react";
+import { useParams } from "react-router-dom";
+
 import { Recipes } from "./Recipes";
 import { Message } from "../Message";
-import React from "react";
-
-export const Category = (x) => {
-	const identifier = x.match.params.slug;
+export const Category = () => {
+	const { categoryId } = useParams();
 	const convertName = (name) => {
 		if (name) {
 			return (
@@ -15,10 +16,10 @@ export const Category = (x) => {
 		<>
 			<div />
 			<div className="mx-4 pt-4">
-				<div className="text-lg pb-4">{convertName(identifier)}</div>
+				<div className="text-lg pb-4">{convertName(categoryId)}</div>
 			</div>
 			<Message />
-			<Recipes from={1} to={20} category={identifier} />
+			<Recipes from={1} to={20} category={categoryId} />
 		</>
 	);
 };

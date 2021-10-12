@@ -1,11 +1,11 @@
 import axios from "axios";
 import { API_URL } from "./service.vals";
 
-const USER_API = API_URL + "/profile/";
+const USER_API = API_URL + "/auth/profile/";
 
-const get = (identifier) => {
+const getProfile = (identifier) => {
 	return axios({
-		url: USER_API + "get",
+		url: USER_API,
 		method: "post",
 		headers: {
 			"content-type": "application/json",
@@ -13,7 +13,7 @@ const get = (identifier) => {
 		data: {
 			id: identifier,
 		},
-	}).catch((err) => console.log(err));
+	});
 };
 
 // import authHeader from "./auth-header";
@@ -42,4 +42,4 @@ const get = (identifier) => {
 // 	getModeratorBoard,
 // 	getAdminBoard,
 // };
-export default { get };
+export default { getProfile };

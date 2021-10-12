@@ -11,7 +11,8 @@ import { Creator } from "./components/recipe/Creator";
 import { Register } from "./components/auth/Register";
 import { Login } from "./components/auth/Login";
 import { Home } from "./components/Home";
-// import { Profile } from "./components/Profile"
+import { AuthRoute } from "./AuthRoute";
+import { Profile } from "./components/Profile";
 
 class App extends Component {
 	render() {
@@ -23,19 +24,23 @@ class App extends Component {
 						<Switch>
 							<Route
 								exact
-								path="/cat/:slug"
+								path="/c/:categoryId"
 								component={Category}
 							/>
-							<Route exact path="/create" component={Creator} />
+							<AuthRoute
+								exact
+								path="/create"
+								component={Creator}
+							/>
 							<Route exact path="/login" component={Login} />
 							<Route
 								exact
 								path="/register"
 								component={Register}
 							/>
-							{/* <Route path="/profile" component={Profile}/> */}
+							<Route path="/u/:userId" component={Profile} />
 							<Route exact path="/" component={Home} />
-							<Route path="/:slug" component={Recipe} />
+							<Route path="/:recipeId" component={Recipe} />
 						</Switch>
 					</div>
 				</Router>

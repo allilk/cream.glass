@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { login } from "../../actions/auth";
 import { Message } from "../Message";
 
 export const Login = (props) => {
+	const { isLoggedIn: auth } = useSelector((state) => state.auth);
+	if (auth) {
+		props.history.push("/");
+	}
 	const dispatch = useDispatch();
-
 	const [form, setForm] = useState({
 		email: "",
 		password: "",
@@ -32,8 +35,9 @@ export const Login = (props) => {
 
 	return (
 		<div>
+			<Message />
+			<br />
 			<center>
-				<Message />
 				<div className="border-2 border-blue-300 w-5/6 md:w-1/4 h-auto bg-white rounded-md">
 					<br />
 					<div className="text-4xl mb-6 tracking-widest">LOGIN</div>
@@ -73,7 +77,7 @@ export const Login = (props) => {
 							<br />
 							<input
 								type="submit"
-								className=" font-semibold w-full py-4 bg-blue-300 -mb-12 hover:bg-blue-500 "
+								className=" font-semibold w-full py-4 bg-blue-300 -mb-12 hover:bg-blue-500 cursor-pointer "
 								value="Login"
 							/>
 						</form>
