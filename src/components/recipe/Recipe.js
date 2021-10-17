@@ -33,14 +33,13 @@ export const Recipe = () => {
 	const [ingredients, setIngredients] = useState([{}]);
 
 	useEffect(() => {
-		dispatch(get_recipe(recipeId))
-			.then((res) => {
-				setData({ ...res });
-				setIngredients(res.ingredients);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		dispatch(get_recipe(recipeId)).then((res) => {
+			setData({ ...res });
+			setIngredients(res.ingredients);
+		});
+		// .catch((err) => {
+		// 	console.log(err);
+		// });
 	}, []);
 	const displayData = (
 		<div className="">

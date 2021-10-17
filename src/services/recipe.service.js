@@ -103,7 +103,7 @@ const getCategories = async () => {
 		url: API_URL + "/category",
 		method: "get",
 		headers: defaultHeaders,
-	});
+	}).then((response) => response);
 };
 export default {
 	addRecipe,

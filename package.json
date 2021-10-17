@@ -16,6 +16,7 @@
 		"axios": "^0.21.1",
 		"babel-plugin-transform-class-properties": "^6.24.1",
 		"css-loader": "^6.2.0",
+		"eslint-plugin-jsx-a11y": "^6.4.1",
 		"js-cookie": "^3.0.0",
 		"postcss-cli-simple": "^3.1.0",
 		"postcss-preset-env": "^6.7.0",
