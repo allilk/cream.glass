@@ -46,3 +46,41 @@ input {
 		opacity: 0;
 	}
 }
+.bm-burger-button {
+	position: relative;
+	width: 20px;
+	height: 17px;
+	right: 36px;
+	top: 36px;
+	/* right: 0; */
+	float: right;
+	margin: -0.8rem;
+}
+
+.bm-burger-bars {
+	background: white;
+}
+
+.bm-cross-button {
+	height: 24px;
+	width: 24px;
+}
+
+.bm-cross {
+	background: #bdc3c7;
+}
+
+.bm-menu {
+	background: #373a47;
+	padding: 2.5em 1.5em 0;
+	font-size: 1.15em;
+}
+
+.bm-item-list {
+	padding: 0.8em;
+}
+
+.bm-item {
+	display: block;
+	color: #bdc3c7;
+}

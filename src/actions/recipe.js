@@ -44,8 +44,8 @@ export const get_categories = () => (dispatch) => {
 		}
 	});
 };
-export const get_recipe = (identifier) => (dispatch) => {
-	return axios({
+export const get_recipe = (identifier) => async (dispatch) => {
+	return await axios({
 		url: RECIPE_API + "/get",
 		method: "post",
 		data: {
@@ -78,19 +78,48 @@ export const get_recipe = (identifier) => (dispatch) => {
 		}
 	});
 };
-export const add_recipe = (obj, accessToken) => (dispatch) => {
-	return RecipeService.addRecipe(obj, accessToken).then(
+export const add_recipe = (obj, accessToken) => async (dispatch) => {
+	const uploadImage = async (image) => {
+		const formData = new FormData();
+		formData.append("file", image);
+
+		return await axios({
+			url: API_URL + "/image/upload",
+			method: "post",
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+			data: formData,
+		}).then((response) => response.data.key);
+	};
+
+	if (obj.image) {
+		const image = await uploadImage(obj.image);
+		obj.image = image;
+	}
+
+	return axios({
+		url: RECIPE_API + "/new",
+		method: "post",
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+		},
+		data: {
+			...obj,
+		},
+	}).then(
 		(response) => {
 			dispatch({ type: ADD_RECIPE });
 			return Promise.resolve(response.data.item);
 		},
 		(error) => {
 			dispatch({ type: FAIL_TO_ADD_RECIPE });
-			dispatchError(
-				dispatch,
-				error.response.status,
-				error.response.data.message
-			);
+
+			dispatch({
+				type: SET_MESSAGE,
+				payload: `${error.status} : ${error.statusText}`,
+			});
+
 			return Promise.reject();
 		}
 	);

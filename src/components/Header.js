@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../actions/auth";
 import { clearMessage } from "../actions/message";
-import { Menu } from "./Menu";
+import { SideMenu } from "./Menu";
 
 export const Header = (props) => {
 	const { user: currentUser } = useSelector((state) => state.auth);
@@ -13,6 +13,10 @@ export const Header = (props) => {
 
 	useEffect(() => {
 		dispatch(clearMessage());
+		const menuWrap = document.querySelector(".bm-menu-wrap");
+		if (menuWrap) {
+			menuWrap.setAttribute("aria-hidden", true);
+		}
 	}, [location]);
 	const logOut = () => {
 		dispatch(logout());
@@ -29,15 +33,17 @@ export const Header = (props) => {
 					</div>
 				</div>
 				<div className={currentUser ? "" : "hidden"}>
-					<div className="inline-flex absolute right-0 mx-4 space-x-8">
+					<div className="inline-flex absolute right-0 top-0">
+						<SideMenu />
+
 						{/* <div className="text-4xl -mt-3">
 							<Link className="" to="/create">
 								+
 							</Link>
 						</div> */}
-						<div className="text-md">
+						{/* <div className="text-md">
 							{currentUser ? <Menu /> : ""}
-						</div>
+						</div> */}
 					</div>
 				</div>
 				<div className={currentUser ? "hidden" : ""}>
