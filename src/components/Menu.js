@@ -20,9 +20,9 @@ export const SideMenu = () => {
 	};
 
 	return (
-		<Menu right noOverlay onStateChange={toggleMenu}>
+		<Menu right noOverlay disableAutoFocus onStateChange={toggleMenu}>
 			{currentUser ? (
-				<div className="noselect">
+				<div className="noselect outline-none">
 					<div>
 						<Link to="/create">Create New Recipe</Link>
 					</div>
@@ -43,10 +43,11 @@ export const SideMenu = () => {
 					</div>
 				</div>
 			) : (
-				<div className="noselect">
+				<div className="noselect outline-none">
 					<div>
 						<Link to="/login">Login</Link>
 					</div>
+
 					<div>
 						<Link to="/register">Register</Link>
 					</div>
