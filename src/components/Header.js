@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { clearMessage } from "../actions/message";
 import { SideMenu } from "./Menu";
 
-export const Header = (props) => {
+export const Header = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 
@@ -24,7 +24,7 @@ export const Header = (props) => {
 					<div className="inline text-xl -ml-4">
 						<Link to="">cream.glass</Link>
 					</div>
-					<div className="inline pl-6 space-x-2 text-sm font-semibold">
+					<div className="invisible md:visible inline pl-6 space-x-2 text-sm font-semibold">
 						<Link to="">Users</Link>
 						<Link to="">Categories</Link>
 						<Link to="">Explore</Link>

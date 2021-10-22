@@ -19,8 +19,8 @@ export const Recipes = (props) => {
 		return (
 			<div key={i} className="contents">
 				<Link to={`/${item.id}`}>
-					<div className="col-span-1 h-48 w-48 bg-gray-200 ">
-						<div className="text-center border-2 border-gray-300 rounded">
+					<div className="col-span-1 bg-gray-200 w-auto h-auto">
+						<div className=" text-center border-2 border-gray-300 rounded">
 							<img
 								alt="No Image"
 								width="250px"
@@ -36,8 +36,8 @@ export const Recipes = (props) => {
 		);
 	});
 	return (
-		<div>
-			<div className="grid grid-cols-2 md:grid-cols-7 place-items-center">
+		<div className="overflow-x-hidden">
+			<div className="grid grid-cols-2 md:grid-cols-6 gap-2">
 				{displayData}
 			</div>
 		</div>
