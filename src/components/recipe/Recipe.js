@@ -13,6 +13,7 @@ import { get_recipe } from "../../actions/recipe";
 
 export const Recipe = () => {
 	const { recipeId } = useParams();
+
 	const dispatch = useDispatch();
 	// const { user: currentUser } = useSelector((state) => state.auth);
 	const [Data, setData] = useState({
@@ -37,9 +38,6 @@ export const Recipe = () => {
 			setData({ ...res });
 			setIngredients(res.ingredients);
 		});
-		// .catch((err) => {
-		// 	console.log(err);
-		// });
 	}, []);
 	const displayData = (
 		<div className="">

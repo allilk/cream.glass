@@ -11,7 +11,7 @@ import { Creator } from "./components/recipe/Creator";
 import { Register } from "./components/auth/Register";
 import { Login } from "./components/auth/Login";
 import { Home } from "./components/Home";
-import { AuthRoute } from "./AuthRoute";
+import { AuthRoute, RecipeRoute } from "./LockedRoutes";
 import { Profile } from "./components/Profile";
 
 class App extends Component {
@@ -40,7 +40,7 @@ class App extends Component {
 							/>
 							<Route path="/u/:userId" component={Profile} />
 							<Route exact path="/" component={Home} />
-							<Route path="/:recipeId" component={Recipe} />
+							<RecipeRoute path="/:recipeId" component={Recipe} />
 						</Switch>
 					</div>
 				</Router>

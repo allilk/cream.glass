@@ -22,7 +22,7 @@ export const Categories = () => {
 		return (
 			<div key={i} className="contents">
 				<Link to={`/c/${item.name}`}>
-					<div className="col-span-1 bg-white rounded-md py-2">
+					<div className="col-span-1 bg-dark rounded py-2">
 						{formattedName}
 					</div>
 				</Link>
@@ -31,7 +31,7 @@ export const Categories = () => {
 	});
 
 	return (
-		<div className="grid grid-cols-3 md:grid-cols-9 gap-1 mx-4">
+		<div className="grid grid-cols-3 md:grid-cols-9 gap-2 mx-2 noselect text-center">
 			{displayData}
 		</div>
 	);

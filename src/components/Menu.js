@@ -6,7 +6,6 @@ import { slide as Menu } from "react-burger-menu";
 
 export const SideMenu = () => {
 	const dispatch = useDispatch();
-	let [visible, setVisible] = useState(false);
 	const { user: currentUser } = useSelector((state) => state.auth);
 
 	const toggleMenu = ({ isOpen }) => {
@@ -16,24 +15,43 @@ export const SideMenu = () => {
 			: menuWrap.setAttribute("aria-hidden", true);
 	};
 	const logOut = () => {
+		window.location.reload();
 		dispatch(logout());
 	};
+
 	return (
 		<Menu right noOverlay onStateChange={toggleMenu}>
-			<div>
-				<Link to={"/u/" + currentUser.id}>My Profile</Link>
-			</div>
-			<div>
-				<Link to="">My Recipes</Link>
-			</div>
-			<div>
-				<Link to="">Settings</Link>
-			</div>
-			<div>
-				<Link to="/" onClick={logOut}>
-					Logout
-				</Link>
-			</div>
+			{currentUser ? (
+				<div className="noselect">
+					<div>
+						<Link to="/create">Create New Recipe</Link>
+					</div>
+					<div>
+						<Link to={"/u/" + currentUser.id}>My Profile</Link>
+					</div>
+					<div>
+						<Link to="/my-recipes">My Recipes</Link>
+					</div>
+
+					<div>
+						<Link to="/settings">Settings</Link>
+					</div>
+					<div>
+						<Link to="/" onClick={logOut}>
+							Logout
+						</Link>
+					</div>
+				</div>
+			) : (
+				<div className="noselect">
+					<div>
+						<Link to="/login">Login</Link>
+					</div>
+					<div>
+						<Link to="/register">Register</Link>
+					</div>
+				</div>
+			)}
 		</Menu>
 	);
 };
