@@ -21,7 +21,7 @@ export const Home = () => {
 					<div className="pb-4 text-lg font-semibold noselect">
 						Recently Added
 					</div>
-					<Recipes from={1} to={7} />
+					<Recipes from={1} to={6} />
 				</div>
 			</div>
 		</div>
