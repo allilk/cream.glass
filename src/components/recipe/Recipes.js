@@ -20,7 +20,7 @@ export const Recipes = (props) => {
 			<div key={i} className="contents">
 				<Link to={`/${item.id}`}>
 					<div className="col-span-1 bg-gray-200 w-auto h-auto">
-						<div className=" text-center border-2 border-gray-300 rounded">
+						<div className="text-center border-2 border-gray-300 rounded">
 							<img
 								alt="No Image"
 								width="250px"
@@ -36,8 +36,8 @@ export const Recipes = (props) => {
 		);
 	});
 	return (
-		<div className="overflow-x-hidden">
-			<div className="grid grid-cols-2 md:grid-cols-6 gap-2">
+		<div className="">
+			<div className="grid grid-cols-2 md:grid-cols-6 gap-2 overflow-x-hidden">
 				{displayData}
 			</div>
 		</div>
