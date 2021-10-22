@@ -61,10 +61,11 @@ input {
 							supported by Chrome, Edge, Opera and Firefox */
 }
 .bm-burger-button {
-	position: relative;
 	width: 20px;
 	height: 17px;
-	float: right;
+	position: absolute;
+	right: 36px;
+	top: 36px;
 }
 
 .bm-burger-bars {
