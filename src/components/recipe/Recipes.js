@@ -17,11 +17,17 @@ export const Recipes = (props) => {
 	}, []);
 	const displayData = recipes.map((item, i) => {
 		return (
-			<div key={i} className="contents ">
+			<div key={i} className="contents">
 				<Link to={`/${item.id}`}>
-					<div className="col-span-1 h-32 bg-blue-400 transition duration-500 hover:bg-blue-500 rounded-md transition ease-in-out transform hover:-translate-y-1 hover:scale-105">
-						<div className="h-4/5"></div>
-						<div className="h-1/5 bg-white rounded-b-md">
+					<div className="col-span-1 h-48 w-48 bg-gray-200 ">
+						<div className="text-center border-2 border-gray-300 rounded">
+							<img
+								alt="No Image"
+								width="250px"
+								height="250px"
+							></img>
+						</div>
+						<div className="pl-4 py-2 -mt-10 bg-dark font-medium rounded-b ">
 							{item.name}
 						</div>
 					</div>
@@ -31,11 +37,9 @@ export const Recipes = (props) => {
 	});
 	return (
 		<div>
-			<center>
-				<div className="mx-4 gap-2 grid grid-cols-1 md:grid-cols-5">
-					{displayData}
-				</div>
-			</center>
+			<div className="grid grid-cols-2 md:grid-cols-7 place-items-center">
+				{displayData}
+			</div>
 		</div>
 	);
 };

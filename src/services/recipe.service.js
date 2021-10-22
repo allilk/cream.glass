@@ -85,6 +85,17 @@ const deleteRecipe = async (identifier, accessToken) => {
 	});
 };
 const getAll = async (page, limit, category) => {
+	// const imageKey = recipe.image;
+
+	// 	if (imageKey) {
+	// 		const response = await axios({
+	// 			url: API_URL + "/image/get",
+	// 			method: "post",
+	// 			data: { fileKey: imageKey },
+	// 		});
+
+	// 		recipe.image = response.data.url;
+	// 	}
 	let ifCategory = "";
 
 	if (category) {
@@ -95,6 +106,25 @@ const getAll = async (page, limit, category) => {
 		url: RECIPE_API + `?page=${page}&limit=${limit}${ifCategory}`,
 		method: "get",
 		headers: defaultHeaders,
+	}).then((response) => {
+		try {
+			// const recipes = response.data.items;
+			// recipes.map(async (recipe) => {
+			// 	if (recipe.image) {
+			// 		const resp = await axios({
+			// 			url: API_URL + "/image/get",
+			// 			method: "post",
+			// 			data: { fileKey: recipe.image },
+			// 		});
+			// 		recipe.image = resp.data.url;
+			// 	}
+			// 	return recipe;
+			// });
+			// response.data.items = recipes;
+			return response;
+		} catch {
+			return response;
+		}
 	});
 };
 
@@ -103,7 +133,7 @@ const getCategories = async () => {
 		url: API_URL + "/category",
 		method: "get",
 		headers: defaultHeaders,
-	});
+	}).then((response) => response);
 };
 export default {
 	addRecipe,

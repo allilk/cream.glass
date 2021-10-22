@@ -173,6 +173,7 @@ export const Creator = (props) => {
 									</select>
 								</div>
 							</div>
+
 							<div className="md:-mt-6 row-span-3 col-span-full md:col-start-1 md:col-span-1">
 								<div className="mb-2">Ingredients</div>
 								<div className="flex border-2 border-black mb-2">
@@ -224,6 +225,22 @@ export const Creator = (props) => {
 								</div>
 								<div className="overscroll-auto space-y-2">
 									{items}
+								</div>
+							</div>
+							<div className="row-span-3 col-span-full md:col-start-2 md:col-span-1">
+								<div className="mb-2">
+									Does this drink contain alcohol?
+								</div>
+								<div className="border-2 p-2 border-black bg-white">
+									<select
+										name="alcoholic"
+										onChange={handleChange}
+										className="w-full"
+										required
+									>
+										<option value="false">No</option>
+										<option value="true">Yes</option>
+									</select>
 								</div>
 							</div>
 							<div className="col-span-full">

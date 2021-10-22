@@ -3,15 +3,12 @@ import { useParams } from "react-router-dom";
 
 import { Recipes } from "./Recipes";
 import { Message } from "../Message";
+
+import { convertName } from "../helpers/format";
+
 export const Category = () => {
 	const { categoryId } = useParams();
-	const convertName = (name) => {
-		if (name) {
-			return (
-				name.charAt(0).toUpperCase() + name.slice(1).replace("_", " ")
-			);
-		}
-	};
+
 	return (
 		<>
 			<div />

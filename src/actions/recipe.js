@@ -7,9 +7,14 @@ import {
 	FAILED_CATEGORIES,
 	FAIL_TO_DEL_RECIPE,
 	DEL_RECIPE,
+	SET_MESSAGE,
 } from "./types";
 import RecipeService from "../services/recipe.service";
 import { ifError, dispatchError } from "./error";
+import axios from "axios";
+
+import { API_URL } from "../services/service.vals";
+const RECIPE_API = API_URL + "/recipe";
 
 export const get_all = (page, limit, category) => (dispatch) => {
 	return RecipeService.getAll(page, limit, category).then((response) => {
@@ -39,33 +44,82 @@ export const get_categories = () => (dispatch) => {
 		}
 	});
 };
-export const get_recipe = (identifier) => (dispatch) => {
-	return RecipeService.getRecipe(identifier).then((response) => {
-		if (!ifError(response.status)) {
+export const get_recipe = (identifier) => async (dispatch) => {
+	return await axios({
+		url: RECIPE_API + "/get",
+		method: "post",
+		data: {
+			id: identifier,
+		},
+	}).then(async (response) => {
+		try {
+			const recipe = response.data.item;
+
+			if (recipe.image) {
+				recipe.image = await axios({
+					url: API_URL + "/image/get",
+					method: "post",
+					data: { fileKey: recipe.image },
+				}).then((response) => response.data.url);
+			}
+
 			dispatch({ type: GET_RECIPE });
 
-			return Promise.resolve(response);
-		} else {
+			return Promise.resolve(recipe);
+		} catch {
 			dispatch({ type: FAIL_TO_GET_RECIPE });
-			dispatchError(dispatch, response.status, response.statusText);
+
+			dispatch({
+				type: SET_MESSAGE,
+				payload: `${response.status} : ${response.statusText}`,
+			});
 
 			return Promise.reject();
 		}
 	});
 };
-export const add_recipe = (obj, accessToken) => (dispatch) => {
-	return RecipeService.addRecipe(obj, accessToken).then(
+export const add_recipe = (obj, accessToken) => async (dispatch) => {
+	const uploadImage = async (image) => {
+		const formData = new FormData();
+		formData.append("file", image);
+
+		return await axios({
+			url: API_URL + "/image/upload",
+			method: "post",
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+			data: formData,
+		}).then((response) => response.data.key);
+	};
+
+	if (obj.image) {
+		const image = await uploadImage(obj.image);
+		obj.image = image;
+	}
+
+	return axios({
+		url: RECIPE_API + "/new",
+		method: "post",
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+		},
+		data: {
+			...obj,
+		},
+	}).then(
 		(response) => {
 			dispatch({ type: ADD_RECIPE });
 			return Promise.resolve(response.data.item);
 		},
 		(error) => {
 			dispatch({ type: FAIL_TO_ADD_RECIPE });
-			dispatchError(
-				dispatch,
-				error.response.status,
-				error.response.data.message
-			);
+
+			dispatch({
+				type: SET_MESSAGE,
+				payload: `${error.status} : ${error.statusText}`,
+			});
+
 			return Promise.reject();
 		}
 	);

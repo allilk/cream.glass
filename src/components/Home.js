@@ -7,18 +7,21 @@ import { Message } from "./Message";
 export const Home = () => {
 	return (
 		<div className="">
-			<div className="block space-y-0 ">
+			<div className="block mx-4">
 				<div className="pt-4">
 					<Message />
 
-					<div className="mx-4 pb-4 text-lg">Categories</div>
+					<div className="pb-4 text-lg font-semibold noselect">
+						Categories
+					</div>
 
-					<center>
-						<Categories />
-					</center>
+					<Categories />
+
 					<br />
-					<div className="mx-4 pb-4 text-lg">Recently Added</div>
-					<Recipes from={1} to={5} />
+					<div className="pb-4 text-lg font-semibold noselect">
+						Recently Added
+					</div>
+					<Recipes from={1} to={7} />
 				</div>
 			</div>
 		</div>

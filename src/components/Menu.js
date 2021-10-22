@@ -2,54 +2,56 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/auth";
+import { slide as Menu } from "react-burger-menu";
 
-export const Menu = () => {
+export const SideMenu = () => {
 	const dispatch = useDispatch();
-	let [visible, setVisible] = useState(false);
 	const { user: currentUser } = useSelector((state) => state.auth);
 
-	const changeVisibility = (event) => {
-		event.preventDefault();
-		if (!visible) {
-			setVisible(true);
-		} else {
-			setVisible(false);
-		}
+	const toggleMenu = ({ isOpen }) => {
+		const menuWrap = document.querySelector(".bm-menu-wrap");
+		isOpen
+			? menuWrap.setAttribute("aria-hidden", false)
+			: menuWrap.setAttribute("aria-hidden", true);
 	};
 	const logOut = () => {
+		window.location.reload();
 		dispatch(logout());
 	};
-	const theMenu = (
-		<div className="bg-blue-400 p-10 py-6 ">
-			<div className="space-y-2">
-				<div>
-					<Link to={"/u/" + currentUser.id}>My Profile</Link>
-				</div>
-				<div>
-					<Link to="">My Recipes</Link>
-				</div>
-				<div>
-					<Link to="">Settings</Link>
-				</div>
-				<div>
-					<Link to="/" onClick={logOut}>
-						Logout
-					</Link>
-				</div>
-			</div>
-		</div>
-	);
 
 	return (
-		<div>
-			<div
-				className="text-2xl float-right -mt-2"
-				onClick={changeVisibility}
-			>
-				≡
-			</div>
-			<br />
-			{visible ? theMenu : ""}
-		</div>
+		<Menu right noOverlay onStateChange={toggleMenu}>
+			{currentUser ? (
+				<div className="noselect">
+					<div>
+						<Link to="/create">Create New Recipe</Link>
+					</div>
+					<div>
+						<Link to={"/u/" + currentUser.id}>My Profile</Link>
+					</div>
+					<div>
+						<Link to="/my-recipes">My Recipes</Link>
+					</div>
+
+					<div>
+						<Link to="/settings">Settings</Link>
+					</div>
+					<div>
+						<Link to="/" onClick={logOut}>
+							Logout
+						</Link>
+					</div>
+				</div>
+			) : (
+				<div className="noselect">
+					<div>
+						<Link to="/login">Login</Link>
+					</div>
+					<div>
+						<Link to="/register">Register</Link>
+					</div>
+				</div>
+			)}
+		</Menu>
 	);
 };

@@ -8,12 +8,14 @@ export const Header = (props) => {
 	const { user: currentUser } = useSelector((state) => state.auth);
 
 	const editRecipe = () => {};
+
 	const deleteRecipe = () => {
 		dispatch(delete_recipe(recipeId, currentUser.accessToken)).then(() => {
 			window.location.replace("/");
 		});
 	};
-	if (currentUser._id == createdBy) {
+
+	if (currentUser && currentUser._id == createdBy) {
 		return (
 			<div className="mt-2 mx-2 space-x-1 text-right">
 				<button
