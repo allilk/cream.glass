@@ -32,7 +32,7 @@ export const Categories = () => {
 
 	return (
 		<div className="grid grid-cols-3 md:grid-cols-9 gap-2 mx-2 noselect text-center">
-			{displayData}
+			{displayData ? displayData : <LoadingIcon />}
 		</div>
 	);
 };

@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 import { Ingredients } from "./Ingredients";
 import { Message } from "../Message";
 import { Header } from "./Header";
+import { LoadingIcon } from "../Loading";
 
 import { get_recipe } from "../../actions/recipe";
 
@@ -83,21 +84,10 @@ export const Recipe = () => {
 			</div>
 		</div>
 	);
-	const loadingIcon = (
-		<div>
-			<center>
-				<br />
-				<div className="lds-ripple">
-					<div />
-					<div />
-				</div>
-			</center>
-		</div>
-	);
 	return (
 		<>
 			<Message />
-			<div>{Data.name.length > 1 ? displayData : loadingIcon}</div>
+			<div>{Data.name.length > 1 ? displayData : <LoadingIcon />}</div>
 		</>
 	);
 };
