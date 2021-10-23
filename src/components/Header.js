@@ -21,7 +21,7 @@ export const Header = () => {
 		<div>
 			<div className="px-8 py-6 align-middle bg-dark inline-flex w-screen">
 				<div className="flex-1 place-items-start">
-					<div className="inline text-xl -ml-4">
+					<div className="inline text-xl -ml-4 noselect">
 						<Link to="">cream.glass</Link>
 					</div>
 					<div className="invisible md:visible inline pl-6 space-x-2 text-sm font-semibold">

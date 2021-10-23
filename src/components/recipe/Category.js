@@ -13,10 +13,12 @@ export const Category = () => {
 		<>
 			<div />
 			<div className="mx-4 pt-4">
-				<div className="text-lg pb-4">{convertName(categoryId)}</div>
+				<div className="pb-4 text-lg font-semibold noselect">
+					{convertName(categoryId)}
+				</div>
+				<Message />
+				<Recipes from={1} to={20} category={categoryId} />
 			</div>
-			<Message />
-			<Recipes from={1} to={20} category={categoryId} />
 		</>
 	);
 };
