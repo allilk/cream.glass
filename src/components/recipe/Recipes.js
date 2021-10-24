@@ -34,7 +34,7 @@ export const Recipes = (props) => {
 						className="col-span-1 bg-gray-200"
 					>
 						<div className="relative border-2 border-gray-400 rounded">
-							{item.image ? (
+							{!item.thumbnail ? (
 								<img
 									src={thumbnail}
 									width="100%"
@@ -42,6 +42,7 @@ export const Recipes = (props) => {
 								></img>
 							) : (
 								<img
+									src={item.thumbnail}
 									alt="No Image"
 									width="100%"
 									height="100%"
