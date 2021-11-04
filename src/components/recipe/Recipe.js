@@ -42,10 +42,10 @@ export const Recipe = () => {
 		});
 	}, []);
 	const displayData = (
-		<div className="m-4 inline-grid grid-cols-1 md:grid-cols-5 w-full overflow-x-hidden">
+		<div className="mt-6 inline-grid grid-cols-1 md:grid-cols-5 w-full overflow-x-hidden mx-4 ">
 			<Header
-			// createdBy={Data.details.created_by._id}
-			// recipeId={recipeId}
+				createdBy={Data.details.created_by._id}
+				recipeId={recipeId}
 			/>
 			<div
 				style={{
@@ -53,7 +53,7 @@ export const Recipe = () => {
 					maxWidth: "250px",
 					aspectRatio: "1/1",
 				}}
-				className="bg-gray-200 col-span-1 mx-auto "
+				className="bg-gray-200 col-span-1 mx-auto mb-4"
 			>
 				<div className="relative border-2 border-gray-400 rounded ">
 					{!Data.image ? (
@@ -73,8 +73,10 @@ export const Recipe = () => {
 				</div>
 			</div>
 
-			<div id="name" className="my-4 col-span-1 md:col-span-4">
-				<div className="text-4xl ">{Data.name}</div>
+			<div id="name" className="col-span-1 md:col-span-4">
+				<div className="text-4xl ">
+					<b>{Data.name}</b>
+				</div>
 				<div className="text-gray-500 text-sm my-2 mx-4">
 					<div className="inline">Created </div>
 					<div className={Data.details.created ? "inline" : "hidden"}>
@@ -85,22 +87,22 @@ export const Recipe = () => {
 					</div>
 
 					<Link to={`/u/${Data.details.created_by.id}`}>
-						{Data.details.created_by.fullName}
+						<b>{Data.details.created_by.fullName}</b>
 					</Link>
 				</div>
 
-				{/* <hr className="w-5/6 md:w-2/3" />
-			<br /> */}
-				<br />
-				<Ingredients arr={ingredients} />
-				{/* <br />
-			<hr className="w-5/6 md:w-2/3" />
-			<br /> */}
-				<br />
-				<div id="steps" className="">
-					<div className="text-xl  mb-6 md:mb-0 md:mb-2">Steps</div>
-					<div className="mx-4">
-						<ReactMarkdown>{Data.steps}</ReactMarkdown>
+				<div className="my-2">
+					<Ingredients arr={ingredients} />
+				</div>
+				<div id="steps" className="md:mx-0">
+					<div className="text-xl mb-2">Steps</div>
+					<div className="mx-4 text-left prose-sm">
+						<ReactMarkdown
+							skipHtml="true"
+							className="text-sm w-11/12"
+						>
+							{Data.steps}
+						</ReactMarkdown>
 					</div>
 				</div>
 			</div>

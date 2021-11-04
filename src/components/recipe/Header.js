@@ -17,7 +17,7 @@ export const Header = (props) => {
 
 	if (currentUser && currentUser._id == createdBy) {
 		return (
-			<div className="mt-2 mx-2 space-x-1 text-right">
+			<div className="-mt-4 md:-mt-0 mx-2 md:mx-4 space-x-1 text-right absolute right-0 z-50">
 				<button
 					onClick={editRecipe}
 					className="align-middle bg-blue-500 hover:bg-blue-700  w-20 py-1 text-white rounded-md"
