@@ -17,6 +17,7 @@ export const Creator = (props) => {
 		ingredients: [],
 		steps: [],
 	});
+
 	const handleChange = (event) => {
 		const key = event.target.name;
 		const value = event.target.value;
@@ -32,11 +33,13 @@ export const Creator = (props) => {
 		amount: 1,
 		measure: "tsp",
 	});
+
 	const handleIngredient = (event) => {
 		const key = event.target.name;
 		const value = event.target.value;
 		setIngredient({ ...ingredient, [key]: value });
 	};
+
 	const handleAdd = (event) => {
 		event.preventDefault();
 
@@ -54,6 +57,7 @@ export const Creator = (props) => {
 			});
 		}
 	};
+
 	const handleDel = (i) => {
 		setRecipe({
 			...recipe,
@@ -62,6 +66,7 @@ export const Creator = (props) => {
 			}),
 		});
 	};
+	
 	const fileSelected = (event) => {
 		const file = event.target.files[0];
 		setRecipe({ ...recipe, image: file });

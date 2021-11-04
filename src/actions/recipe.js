@@ -78,52 +78,60 @@ export const get_recipe = (identifier) => async (dispatch) => {
 		}
 	});
 };
-export const add_recipe = (obj, accessToken) => async (dispatch) => {
-	const uploadImage = async (image) => {
-		const formData = new FormData();
-		formData.append("file", image);
+export const add_recipe =
+	(obj, accessToken, refreshToken) => async (dispatch) => {
+		const uploadImage = async (image) => {
+			image.refreshToken = refreshToken;
+			const formData = new FormData();
+			formData.append("file", image);
 
-		return await axios({
-			url: API_URL + "/image/upload",
+			return await axios({
+				url: API_URL + "/image/upload",
+				method: "post",
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+				data: formData,
+			}).then((response) => {
+				if (response.data.accessToken) {
+					// accessToken = response.data.accessToken
+				}
+				return response.data.key;
+			});
+		};
+
+		if (obj.image) {
+			const image = await uploadImage(obj.image);
+			obj.image = image;
+		}
+		obj.refreshToken = refreshToken;
+		return axios({
+			url: RECIPE_API + "/new",
 			method: "post",
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 			},
-			data: formData,
-		}).then((response) => response.data.key);
+			data: {
+				...obj,
+			},
+		}).then(
+			(response) => {
+				dispatch({ type: ADD_RECIPE });
+				return Promise.resolve(response.data.item);
+			},
+			(error) => {
+				console.log(error);
+				dispatch({ type: FAIL_TO_ADD_RECIPE });
+
+				dispatch({
+					type: SET_MESSAGE,
+					payload: `${error.status} : ${error.statusText}`,
+				});
+
+				return Promise.reject();
+			}
+		);
 	};
-
-	if (obj.image) {
-		const image = await uploadImage(obj.image);
-		obj.image = image;
-	}
-
-	return axios({
-		url: RECIPE_API + "/new",
-		method: "post",
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-		data: {
-			...obj,
-		},
-	}).then(
-		(response) => {
-			dispatch({ type: ADD_RECIPE });
-			return Promise.resolve(response.data.item);
-		},
-		(error) => {
-			dispatch({ type: FAIL_TO_ADD_RECIPE });
-
-			dispatch({
-				type: SET_MESSAGE,
-				payload: `${error.status} : ${error.statusText}`,
-			});
-
-			return Promise.reject();
-		}
-	);
-};
 export const delete_recipe = (identifier, accessToken) => (dispatch) => {
 	return RecipeService.deleteRecipe(identifier, accessToken).then(
 		(response) => {

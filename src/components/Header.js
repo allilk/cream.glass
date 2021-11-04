@@ -19,7 +19,7 @@ export const Header = () => {
 
 	return (
 		<div>
-			<div className="px-8 py-6 align-middle bg-dark inline-flex w-screen">
+			<div className="px-8 py-6 align-middle bg-dark inline-flex w-full overflow-x-hidden">
 				<div className="flex-1 place-items-start">
 					<div className="inline text-xl -ml-4 noselect">
 						<Link to="">cream.glass</Link>

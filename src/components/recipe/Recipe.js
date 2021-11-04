@@ -9,6 +9,7 @@ import { Ingredients } from "./Ingredients";
 import { Message } from "../Message";
 import { Header } from "./Header";
 import { LoadingIcon } from "../Loading";
+import thumbnail from "../../thumbnail.png";
 
 import { get_recipe } from "../../actions/recipe";
 
@@ -41,19 +42,40 @@ export const Recipe = () => {
 		});
 	}, []);
 	const displayData = (
-		<div className="">
+		<div className="m-4 inline-grid grid-cols-1 md:grid-cols-5 w-full overflow-x-hidden">
 			<Header
-				createdBy={Data.details.created_by._id}
-				recipeId={recipeId}
+			// createdBy={Data.details.created_by._id}
+			// recipeId={recipeId}
 			/>
-			<center>
-				<img src={Data.image} />
-			</center>
-			<div id="name" className="my-4 text-4xl text-center">
-				{Data.name}
+			<div
+				style={{
+					maxHeight: "250px",
+					maxWidth: "250px",
+					aspectRatio: "1/1",
+				}}
+				className="bg-gray-200 col-span-1 mx-auto "
+			>
+				<div className="relative border-2 border-gray-400 rounded ">
+					{!Data.image ? (
+						<img src={thumbnail} width="100%" height="100%"></img>
+					) : (
+						<img
+							className="mx-auto block"
+							src={Data.image}
+							alt="No Image"
+							style={{
+								maxHeight: "250px",
+								maxWidth: "250px",
+								aspectRatio: "1/1",
+							}}
+						></img>
+					)}
+				</div>
 			</div>
-			<center>
-				<div className="text-gray-500 text-sm my-2 ">
+
+			<div id="name" className="my-4 col-span-1 md:col-span-4">
+				<div className="text-4xl ">{Data.name}</div>
+				<div className="text-gray-500 text-sm my-2 mx-4">
 					<div className="inline">Created </div>
 					<div className={Data.details.created ? "inline" : "hidden"}>
 						{moment(Data.details.created).format(
@@ -67,27 +89,31 @@ export const Recipe = () => {
 					</Link>
 				</div>
 
-				<hr className="w-5/6 md:w-2/3" />
-			</center>
-			<br />
-			<Ingredients arr={ingredients} />
-			<br />
-			<center>
-				<hr className="w-5/6 md:w-2/3" />
-			</center>
-			<br />
-			<div id="steps" className="text-center">
-				<div className="text-xl  mb-6 md:mb-0 md:mb-2">Steps</div>
-				<div className="">
-					<ReactMarkdown>{Data.steps}</ReactMarkdown>
+				{/* <hr className="w-5/6 md:w-2/3" />
+			<br /> */}
+				<br />
+				<Ingredients arr={ingredients} />
+				{/* <br />
+			<hr className="w-5/6 md:w-2/3" />
+			<br /> */}
+				<br />
+				<div id="steps" className="">
+					<div className="text-xl  mb-6 md:mb-0 md:mb-2">Steps</div>
+					<div className="mx-4">
+						<ReactMarkdown>{Data.steps}</ReactMarkdown>
+					</div>
 				</div>
 			</div>
 		</div>
 	);
 	return (
 		<>
-			<Message />
-			<div>{Data.name.length > 1 ? displayData : <LoadingIcon />}</div>
+			<div className="overflow-x-hidden">
+				<Message />
+				<div>
+					{Data.name.length > 1 ? displayData : <LoadingIcon />}
+				</div>
+			</div>
 		</>
 	);
 };
