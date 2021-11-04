@@ -13,10 +13,9 @@ export const Ingredients = (x) => {
 	});
 	return (
 		<div id="ingredients" className="grid grid-cols-2">
-			<div className="col-span-2 md:col-span-1 text-xl text-center mb-6 md:mb-0">
-				Ingredients
-			</div>
-			<div className="col-span-2 md:col-span-1 text-center md:text-left">
+			<div className="col-span-2 md:col-span-1 text-xl">Ingredients</div>
+			<br />
+			<div className="col-span-2 md:col-span-1 mt-2 mx-4">
 				{ingredients}
 			</div>
 		</div>
