@@ -1,10 +1,7 @@
 import Link from "next/link";
 
-import convertName from "../components/helpers/format";
-
-import Recipes from "../components/recipe/Recipes";
-import Categories from "../components/recipe/Categories";
 import Message from "../components/Message";
+import convertName from "../components/helpers/format";
 
 const Home = (props) => {
 	const { categories, recipes } = props;
@@ -13,18 +10,16 @@ const Home = (props) => {
 			<div className="block mx-4">
 				<div className="pt-4">
 					<Message />
-
 					<div className="pb-4 text-lg font-semibold noselect">
 						Categories
 					</div>
 					<div className="grid grid-cols-3 md:grid-cols-9 gap-2 mx-2 noselect text-center">
 						{categories.map((item, i) => {
-							const formattedName = convertName(item.name);
 							return (
 								<div key={i} className="contents">
 									<Link href={`/c/${item.name}`}>
 										<div className="col-span-1 bg-dark rounded py-2">
-											{formattedName}
+											{convertName(item.name)}
 										</div>
 									</Link>
 								</div>
