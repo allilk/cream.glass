@@ -1,10 +1,24 @@
 import Link from "next/link";
+import useSWR, { SWRConfig } from "swr";
 
 import Message from "../components/Message";
 import convertName from "../components/helpers/format";
 
-const Home = (props) => {
-	const { categories, recipes } = props;
+const getRecipes = async () => {
+	const response = await fetch(
+		"http://localhost:3000/api/recipes?page=1&limit=6"
+	);
+	return await response.json();
+};
+const getCategories = async () => {
+	const response = await fetch("http://localhost:3000/api/categories");
+	return await response.json();
+};
+
+const Home = () => {
+	const { data: categories } = useSWR("categories", getCategories());
+	const { data: recipes } = useSWR("recipes", getRecipes());
+
 	return (
 		<div className="">
 			<div className="block mx-4">
@@ -76,19 +90,23 @@ const Home = (props) => {
 };
 
 export const getStaticProps = async () => {
-	const recipeResp = await fetch(
-		"http://localhost:3000/api/recipes?page=1&limit=6"
-	);
-	const recipes = await recipeResp.json();
-
-	const categoryResp = await fetch("http://localhost:3000/api/categories");
-	const categories = await categoryResp.json();
+	const recipes = await getRecipes();
+	const categories = await getCategories();
 
 	return {
 		props: {
-			recipes: recipes.items,
-			categories: categories.items,
+			fallback: {
+				recipes: recipes.items,
+				categories: categories.items,
+			},
 		},
 	};
 };
-export default Home;
+
+export default function Page({ fallback }) {
+	return (
+		<SWRConfig value={{ fallback }}>
+			<Home />
+		</SWRConfig>
+	);
+}
