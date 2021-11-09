@@ -5,14 +5,16 @@ import axios from "axios";
 const providers = [
 	Providers.Credentials({
 		name: "Credentials",
-		authorize: async (credentials) => {
+		credentials: {
+			email: { label: "Email", type: "text" },
+			password: { label: "Password", type: "password" },
+		},
+		async authorize(credentials) {
 			const user = await axios.post(
-				"https://localhost:3000/login",
+				"http://localhost:3000/api/user/login",
 				{
-					user: {
-						password: credentials.password,
-						email: credentials.email,
-					},
+					password: credentials.password,
+					email: credentials.email,
 				},
 				{
 					headers: {
@@ -21,9 +23,8 @@ const providers = [
 					},
 				}
 			);
-
 			if (user) {
-				return user;
+				return user.data;
 			} else {
 				return null;
 			}
@@ -35,21 +36,28 @@ const callbacks = {
 	// Getting the JWT token from API response
 	async jwt(token, user) {
 		if (user) {
-			token.accessToken = user.token;
+			token = user;
 		}
-
 		return token;
 	},
 
 	async session(session, token) {
 		session.accessToken = token.accessToken;
+		session.user = token.user;
 		return session;
 	},
 };
 
 const options = {
+	NEXTAUTH_URL: process.env.NEXTAUTH_URL,
 	providers,
 	callbacks,
+	session: {
+		jwt: true,
+		maxAge: 30 * 24 * 60 * 60, // 30 days
+	},
+	database: process.env.MONGODB_URI,
+	secret: process.env.ACCESS_SECRET,
 };
 
 export default (req, res) => NextAuth(req, res, options);

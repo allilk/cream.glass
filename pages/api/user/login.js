@@ -49,9 +49,11 @@ async function handler(req, res) {
 				// }
 				return res.status(200).send({
 					accessToken,
-					refreshToken: user.refreshToken,
-					_id: user._id,
-					id: user.id,
+					user: {
+						_id: user._id,
+						id: user.id,
+						fullName: user.fullName,
+					},
 				});
 			});
 		}
