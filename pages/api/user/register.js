@@ -8,33 +8,38 @@ import { generateUserId } from "../../../helpers/other";
 async function handler(req, res) {
 	const {
 		method,
-		body: { email },
+		body: { email, name, password },
 	} = req;
 
-	if (method === "POST") {
-		const newUser = new User({ id: generateUserId(7), ...req.body });
-		newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
+	return new Promise(async (resolve) => {
+		if (method === "POST") {
+			const newUser = new User({ id: generateUserId(7), email, name });
 
-		User.findOne({ email }, async (err, user) => {
-			if (err) {
-				return res.status(400).send({
-					user: {},
-					message: err,
-				});
-			}
-			if (!user) {
-				await newUser.save();
-				return res.status(200).send({
-					user,
-					message: "success",
-				});
-			} else {
-				return res.status(403).send({
-					user: {},
-					message: "Email is already registered!",
-				});
-			}
-		}).populate("-hash_password");
-	}
+			newUser.hash_password = bcrypt.hashSync(password, 10);
+			console.log(newUser);
+
+			User.findOne({ email }, async (err, user) => {
+				if (err) {
+					res.status(400).send({
+						user: {},
+						message: err,
+					});
+				}
+				if (!user) {
+					await newUser.save();
+					res.status(200).send({
+						user,
+						message: "success",
+					});
+				} else {
+					res.status(403).send({
+						user: {},
+						message: "Email is already registered!",
+					});
+				}
+			}).populate("-hash_password");
+			return resolve();
+		}
+	});
 }
 export default connectDB(handler);

@@ -32,7 +32,6 @@ async function handler(req, res) {
 		const userId = req.payload.aud;
 		const { newAccessToken } = req.payload;
 
-		console.log(userId, newAccessToken);
 		// const newRecipe = new Recipe({
 		// 	...req.body,
 		// 	id: identifier,

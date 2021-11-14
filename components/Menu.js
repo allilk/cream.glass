@@ -4,7 +4,7 @@ import Link from "next/link";
 // import { logout } from "../actions/auth";
 import { slide as Menu } from "react-burger-menu";
 
-export const SideMenu = () => {
+const SideMenu = (props) => {
 	// const dispatch = useDispatch();
 	// const { user: currentUser } = useSelector((state) => state.auth);
 	const currentUser = false;
@@ -13,10 +13,6 @@ export const SideMenu = () => {
 		isOpen
 			? menuWrap.setAttribute("aria-hidden", false)
 			: menuWrap.setAttribute("aria-hidden", true);
-	};
-	const logOut = () => {
-		window.location.reload();
-		// dispatch(logout());
 	};
 
 	return (
@@ -27,7 +23,7 @@ export const SideMenu = () => {
 						<Link href="/create">Create New Recipe</Link>
 					</div>
 					<div>
-						<Link href={"/u/" + currentUser.id}>My Profile</Link>
+						<Link href={"/u/"}>My Profile</Link>
 					</div>
 					<div>
 						<Link href="/my-recipes">My Recipes</Link>
@@ -54,3 +50,5 @@ export const SideMenu = () => {
 		</Menu>
 	);
 };
+
+export default SideMenu;

@@ -44,12 +44,17 @@ const callbacks = {
 	async session(session, token) {
 		session.accessToken = token.accessToken;
 		session.user = token.user;
+
 		return session;
 	},
 };
 
 const options = {
 	NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+	pages: {
+		signIn: "/login",
+		signOut: "/logout",
+	},
 	providers,
 	callbacks,
 	session: {

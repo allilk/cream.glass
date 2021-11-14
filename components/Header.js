@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
+
 // import { useDispatch } from "react-redux";
 
 // import { clearMessage } from "../actions/message";
-import { SideMenu } from "./Menu";
+import SideMenu from "./Menu";
 
-const Header = () => {
-	// const dispatch = useDispatch();
-	// const location = useLocation();
-
+const Header = ({ session }) => {
 	useEffect(() => {
-		// dispatch(clearMessage());
 		const menuWrap = document.querySelector(".bm-menu-wrap");
 		if (menuWrap) {
 			menuWrap.setAttribute("aria-hidden", true);
@@ -30,9 +27,9 @@ const Header = () => {
 						<Link href="">Explore</Link>
 					</div> */}
 				</div>
-				{/* <div className="flex-1 place-items-end align-middle mt-1">
+				<div className="flex-1 place-items-end align-middle mt-1">
 					<SideMenu />
-				</div> */}
+				</div>
 			</div>
 		</div>
 	);

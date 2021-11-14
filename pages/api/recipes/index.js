@@ -1,8 +1,11 @@
+import { getSession } from "next-auth/client";
+
 import connectDB from "../../../lib/mongdb";
 import Recipe from "../../../models/recipe";
 
 async function handler(req, res) {
 	const { method } = req;
+	const session = await getSession({ req });
 
 	return new Promise((resolve) => {
 		if (method === "GET") {
@@ -48,6 +51,8 @@ async function handler(req, res) {
 					}
 					return resolve();
 				});
+		} else if (method === "POST") {
+			console.log(session);
 		}
 	});
 }

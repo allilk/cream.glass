@@ -5,7 +5,7 @@ const Profile = (props) => {
 	const { user: profile } = props;
 	return (
 		<div>
-			<div className="mx-4 pb-4 text-xl">{profile.fullName}</div>
+			<div className="mx-4 pb-4 text-xl">{profile.name}</div>
 		</div>
 	);
 };

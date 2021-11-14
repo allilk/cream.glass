@@ -1,10 +1,11 @@
-import { Provider } from "next-auth/client";
-import Header from "../components/Header";
+import { Provider, getSession } from "next-auth/client";
+import Layout from "../components/Layout";
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 // Use the <Provider> to improve performance and allow components that call
 // `useSession()` anywhere in your application to access the `session` object.
-export default function App({ Component, pageProps }) {
+function App(props) {
+	const { Component, pageProps, session } = props;
 	return (
 		<Provider
 			// Provider options are not required but can be useful in situations where
@@ -24,10 +25,21 @@ export default function App({ Component, pageProps }) {
 				// windows / tabs will be updated to reflect the user is signed out.
 				keepAlive: 0,
 			}}
-			session={pageProps.session}
+			session={session}
 		>
-			<Header />
-			<Component {...pageProps} />
+			<Layout>
+				<Component {...pageProps} />
+			</Layout>
 		</Provider>
 	);
 }
+
+App.getInitialProps = async (context) => {
+	const session = await getSession(context);
+
+	return {
+		session,
+	};
+};
+
+export default App;
