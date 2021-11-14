@@ -42,7 +42,7 @@ const Register = () => {
 
 	return (
 		<div>
-			<div className="border-2 border-blue-300 mx-6 md:mx-0 md:w-1/4 h-auto bg-white rounded-md">
+			<div className="border-2 border-blue-300 mx-6 md:mx-0 md:w-1/4 h-auto bg-white rounded-md mx-auto text-center">
 				<br />
 				<div className="text-4xl mb-6 tracking-widest">REGISTER</div>
 				<div className="mb-12">

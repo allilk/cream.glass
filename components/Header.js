@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 
-// import { useDispatch } from "react-redux";
-
-// import { clearMessage } from "../actions/message";
 import SideMenu from "./Menu";
 
-const Header = ({ session }) => {
+const Header = () => {
 	useEffect(() => {
 		const menuWrap = document.querySelector(".bm-menu-wrap");
 		if (menuWrap) {
@@ -27,7 +24,7 @@ const Header = ({ session }) => {
 						<Link href="">Explore</Link>
 					</div> */}
 				</div>
-				<div className="flex-1 place-items-end align-middle mt-1">
+				<div className="flex-1 place-items-end align-middle mt-1 top-0">
 					<SideMenu />
 				</div>
 			</div>

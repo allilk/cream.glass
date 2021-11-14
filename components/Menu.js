@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-// import { useDispatch, useSelector } from "react-redux";
-// import { logout } from "../actions/auth";
 import { slide as Menu } from "react-burger-menu";
+import { getSession, signOut } from "next-auth/client";
 
-const SideMenu = (props) => {
-	// const dispatch = useDispatch();
-	// const { user: currentUser } = useSelector((state) => state.auth);
-	const currentUser = false;
+const SideMenu = () => {
+	const [user, setUser] = useState();
+
+	useEffect(async () => {
+		const resp = await getSession();
+		if (resp) {
+			setUser(resp.user);
+		}
+	}, []);
+
 	const toggleMenu = ({ isOpen }) => {
 		const menuWrap = document.querySelector(".bm-menu-wrap");
 		isOpen
@@ -17,7 +22,7 @@ const SideMenu = (props) => {
 
 	return (
 		<Menu right noOverlay disableAutoFocus onStateChange={toggleMenu}>
-			{currentUser ? (
+			{user ? (
 				<div className="noselect outline-none">
 					<div>
 						<Link href="/create">Create New Recipe</Link>
@@ -32,8 +37,8 @@ const SideMenu = (props) => {
 					<div>
 						<Link href="/settings">Settings</Link>
 					</div>
-					<div>
-						<Link href="/">Logout</Link>
+					<div className="cursor-pointer" onClick={() => signOut()}>
+						Logout
 					</div>
 				</div>
 			) : (
