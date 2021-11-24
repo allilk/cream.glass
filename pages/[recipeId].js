@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Head from "next/head";
 import Link from "next/link";
 
 import ReactMarkdown from "react-markdown";
@@ -32,6 +33,17 @@ const Recipe = ({ recipe }) => {
 		<div>Loading...</div>
 	) : (
 		<div className="overflow-x-hidden md:mx-0 mx-4">
+			<Head>
+				<title>{recipe.name}</title>
+				<meta content={recipe.steps} name="og:description" />
+				<meta content="/thumbnail.png" name="og:image" />
+				<meta
+					content={
+						recipe.name + " by " + recipe.details.created_by.name
+					}
+					property="og:title"
+				/>
+			</Head>
 			<div className="mt-6 inline-grid grid-cols-1 md:grid-cols-5 w-full">
 				<div
 					style={{

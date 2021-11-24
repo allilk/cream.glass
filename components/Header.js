@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
+import Head from "next/head";
 
 import SideMenu from "./Menu";
 
@@ -13,6 +14,12 @@ const Header = () => {
 
 	return (
 		<div>
+			<Head>
+				<meta content="website" property="og:type" />
+				<meta content="cream.glass" property="og:site_name" />
+				<meta content="#b2d5eb" name="theme-color" />
+			</Head>
+
 			<div className="px-8 py-6 align-middle bg-dark inline-flex w-full overflow-x-hidden">
 				<div className="flex-1 place-items-start">
 					<div className="inline text-xl -ml-4 noselect">
