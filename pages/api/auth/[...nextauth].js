@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import User from "../../../models/user";
 import { generateAccessToken } from "../../../helpers/jwt_helper";
+import connectDB from "../../../lib/mongdb";
 
 const providers = [
 	Providers.Credentials({
@@ -11,18 +12,23 @@ const providers = [
 			password: { label: "Password", type: "password" },
 		},
 		async authorize({ email, password }) {
-			const existingUser = await User.findOne({ email });
-			if (existingUser && existingUser.comparePassword(password)) {
-				// Authentication success
-				const accessToken = await generateAccessToken(existingUser._id);
-				return {
-					accessToken,
-					user: existingUser,
-				};
-			} else {
-				// Authentication fail
-				return null;
-			}
+			return new Promise(async (resolve) => {
+				await connectDB();
+				const existingUser = await User.findOne({ email });
+				if (existingUser && existingUser.comparePassword(password)) {
+					// Authentication success
+					const accessToken = await generateAccessToken(
+						existingUser._id
+					);
+					return resolve({
+						accessToken,
+						user: existingUser,
+					});
+				} else {
+					// Authentication fail
+					return resolve(null);
+				}
+			});
 		},
 	}),
 ];

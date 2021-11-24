@@ -14,7 +14,11 @@ async function handler(req, res) {
 	return new Promise(async (resolve) => {
 		if (method === "POST") {
 			await connectDB();
-			const newUser = new User({ id: generateUserId(7), email, name });
+			const newUser = new User({
+				id: await generateUserId(7),
+				email,
+				name,
+			});
 
 			newUser.hash_password = bcrypt.hashSync(password, 10);
 

@@ -87,6 +87,7 @@ export const getStaticProps = async () => {
 			recipes: JSON.parse(JSON.stringify(recipes)),
 			categories: JSON.parse(JSON.stringify(categories)),
 		},
+		revalidate: 60,
 	};
 };
 

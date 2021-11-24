@@ -19,9 +19,9 @@ module.exports = {
 	generateUserId: async (length) => {
 		const identifier = randomstring.generate(length);
 
-		await User.findOne({ id: identifier }, async (err, result) => {
+		User.findOne({ id: identifier }, async (err, result) => {
 			if (result) {
-				return await this.generateUserId(length);
+				return this.generateUserId(length);
 			}
 		});
 
@@ -30,9 +30,9 @@ module.exports = {
 	generateCategoryId: async (length) => {
 		const identifier = randomstring.generate(length);
 
-		await Category.findOne({ id: identifier }, async (err, result) => {
+		Category.findOne({ id: identifier }, async (err, result) => {
 			if (result) {
-				return await this.generateCategoryId(length);
+				return this.generateCategoryId(length);
 			}
 		});
 
