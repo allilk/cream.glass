@@ -13,10 +13,10 @@ async function handler(req, res) {
 
 	return new Promise(async (resolve) => {
 		if (method === "POST") {
+			await connectDB();
 			const newUser = new User({ id: generateUserId(7), email, name });
 
 			newUser.hash_password = bcrypt.hashSync(password, 10);
-			console.log(newUser);
 
 			User.findOne({ email }, async (err, user) => {
 				if (err) {
@@ -28,7 +28,6 @@ async function handler(req, res) {
 				if (!user) {
 					await newUser.save();
 					res.status(200).send({
-						user,
 						message: "success",
 					});
 				} else {
@@ -38,8 +37,9 @@ async function handler(req, res) {
 					});
 				}
 			}).populate("-hash_password");
-			return resolve();
+			resolve();
+			return;
 		}
 	});
 }
-export default connectDB(handler);
+export default handler;

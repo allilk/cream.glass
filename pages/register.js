@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Router from "next/router";
 
 const Register = () => {
 	const [name, setName] = useState("");
@@ -33,6 +34,8 @@ const Register = () => {
 				}),
 			}
 		);
+		const newUser = await response.json();
+		if (newUser.message === "success") Router.push("/login");
 	};
 
 	return (

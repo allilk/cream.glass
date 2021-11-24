@@ -21,7 +21,7 @@ const Recipe = ({ item }) => {
 					) : (
 						<img
 							src={item.thumbnail}
-							alt="No Image"
+							alt="/thumbnail.png"
 							width="100%"
 							height="100%"
 						></img>

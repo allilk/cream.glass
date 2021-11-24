@@ -28,7 +28,7 @@ const SideMenu = () => {
 						<Link href="/create">Create New Recipe</Link>
 					</div>
 					<div>
-						<Link href={"/u/"}>My Profile</Link>
+						<Link href={`/u/${user.id}`}>My Profile</Link>
 					</div>
 					<div>
 						<Link href="/my-recipes">My Recipes</Link>

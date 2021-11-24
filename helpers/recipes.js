@@ -1,10 +1,7 @@
 import connectDB from "../lib/mongdb";
 
 import Recipe from "../models/recipe";
-// import mongoose from "mongoose";
-// const Recipe = mongoose.model("Recipe");
-// import {generateRecipeId} from './other';
-// import imageController from "./image";
+import imageController from "./image";
 
 export const getRecipe = async (id) => {
 	return new Promise(async (resolve) => {
@@ -16,13 +13,12 @@ export const getRecipe = async (id) => {
 				"details.created_by",
 				"-hash_password -email -recipes  -__v -created -refreshToken -_id"
 			);
+		if (recipe && recipe.image) {
+			recipe.image = await imageController.get(recipe.image);
+		}
 		resolve(recipe);
 		return;
 	});
-
-	// if (recipe.image) {
-	// 	recipe.image = await imageController.get(recipe.image);
-	// }
 };
 
 export const getAll = async (queryPage, queryLimit, category) => {
@@ -37,8 +33,9 @@ export const getAll = async (queryPage, queryLimit, category) => {
 				: parseInt(queryLimit) || 10;
 		const skipIndex = (page - 1) * limit;
 
+		const filters = category ? { "details.category": category } : {};
 		const result = await Recipe.find()
-			// .where({ "details.category": category })
+			.where(filters)
 			.select("name id details thumbnail -_id")
 			.sort({ "details.created": -1 })
 			.limit(limit)

@@ -1,12 +1,7 @@
 import connectDB from "../../../lib/mongdb";
 import User from "../../../models/user";
-import Token from "../../../models/token";
 
-import {
-	generateAccessToken,
-	generateRefreshToken,
-	verifyRefreshToken,
-} from "../../../helpers/jwt_helper";
+import { generateAccessToken } from "../../../helpers/jwt_helper";
 
 const handler = async (req, res) => {
 	const {
@@ -15,6 +10,7 @@ const handler = async (req, res) => {
 	} = req;
 	return new Promise(async (resolve) => {
 		if (method === "POST") {
+			await connectDB();
 			try {
 				await User.findOne({ email }, async (err, user) => {
 					if (err) {
@@ -55,11 +51,11 @@ const handler = async (req, res) => {
 					// 		user.save();
 					// 	}
 					// }
-
-					return resolve();
+					resolve();
+					return;
 				});
 			} catch {}
 		}
 	});
 };
-export default connectDB(handler);
+export default handler;
