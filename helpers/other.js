@@ -5,34 +5,34 @@ import Category from "../models/category";
 import randomstring from "randomstring";
 
 module.exports = {
-	generateRecipeId: (length) => {
+	generateRecipeId: async (length) => {
 		const identifier = randomstring.generate(length);
 
-		Recipe.findOne({ id: identifier }, (err, result) => {
+		await Recipe.findOne({ id: identifier }, async (err, result) => {
 			if (result) {
-				return this.generateRecipeId();
+				return await this.generateRecipeId(length);
 			}
 		});
 
 		return identifier;
 	},
-	generateUserId: (length) => {
+	generateUserId: async (length) => {
 		const identifier = randomstring.generate(length);
 
-		User.findOne({ id: identifier }, (err, result) => {
+		await User.findOne({ id: identifier }, async (err, result) => {
 			if (result) {
-				return this.generateRecipeId();
+				return await this.generateUserId(length);
 			}
 		});
 
 		return identifier;
 	},
-	generateCategoryId: (length) => {
+	generateCategoryId: async (length) => {
 		const identifier = randomstring.generate(length);
 
-		Category.findOne({ id: identifier }, (err, result) => {
+		await Category.findOne({ id: identifier }, async (err, result) => {
 			if (result) {
-				return this.generateRecipeId();
+				return await this.generateCategoryId(length);
 			}
 		});
 

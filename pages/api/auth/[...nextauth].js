@@ -17,7 +17,7 @@ const providers = [
 				const accessToken = await generateAccessToken(existingUser._id);
 				return {
 					accessToken,
-					existingUser,
+					user: existingUser,
 				};
 			} else {
 				// Authentication fail

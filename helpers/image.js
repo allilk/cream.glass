@@ -20,6 +20,7 @@ const s3 = new S3({
 module.exports = {
 	upload: async (req, res) => {
 		const uploadFile = async (file) => {
+			console.log(file);
 			const fileStream = fs.createReadStream(file.path);
 
 			const uploadParams = {
@@ -28,7 +29,7 @@ module.exports = {
 				Key: file.filename,
 			};
 
-			return s3.upload(uploadParams).promise();
+			// return s3.upload(uploadParams).promise();
 		};
 		const file = req.file;
 		const result = await uploadFile(file);

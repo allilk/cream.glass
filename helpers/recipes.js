@@ -1,7 +1,10 @@
 import connectDB from "../lib/mongdb";
 
 import Recipe from "../models/recipe";
+import User from "../models/user";
+
 import imageController from "./image";
+// import { generateRecipeId } from "./other";
 
 export const getRecipe = async (id) => {
 	return new Promise(async (resolve) => {
@@ -41,6 +44,17 @@ export const getAll = async (queryPage, queryLimit, category) => {
 			.limit(limit)
 			.skip(skipIndex);
 		resolve(result);
+		return;
+	});
+};
+
+export const addRecipe = async (recipe, accessToken) => {
+	return new Promise(async (resolve) => {
+		// await connectDB();
+
+		// const identifier = await generateRecipeId(5);
+		// console.log(recipe, identifier);
+		resolve();
 		return;
 	});
 };

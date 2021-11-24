@@ -24,17 +24,15 @@ const Login = ({ session }) => {
 			callbackUrl: `${window.location.origin}`,
 		});
 	};
-
-	if (session && process.browser) {
-		Router.push("/");
-		// return (
-		// 	<>
-		// 		{" "}
-		// 		Signed in as {session.user.fullName} <br />{" "}
-		// 		<button onClick={() => signOut()}>Sign out</button>{" "}
-		// 	</>
-		// );
-	}
+	if (session && process.browser) Router.push("/");
+	// return (
+	// 	<>
+	// 		{" "}
+	// 		Signed in as {session.user.fullName} <br />{" "}
+	// 		<button onClick={() => signOut()}>Sign out</button>{" "}
+	// 	</>
+	// );
+	// }
 	return (
 		<div>
 			<br />
