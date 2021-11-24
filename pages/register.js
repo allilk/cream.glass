@@ -1,4 +1,3 @@
-import Router from "next/router";
 import { useState } from "react";
 
 const Register = () => {
@@ -34,10 +33,6 @@ const Register = () => {
 				}),
 			}
 		);
-
-		// const parsedData = await response.json();
-
-		console.log(response);
 	};
 
 	return (
@@ -116,12 +111,6 @@ const Register = () => {
 			</div>
 		</div>
 	);
-};
-
-export const getServerSideProps = async (context) => {
-	return {
-		props: {},
-	};
 };
 
 export default Register;

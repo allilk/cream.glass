@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 import connectDB from "../../../lib/mongdb";
 import User from "../../../models/user";

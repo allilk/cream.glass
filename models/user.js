@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-// import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
 	name: {
@@ -38,8 +38,8 @@ const userSchema = new mongoose.Schema({
 	},
 });
 
-// userSchema.methods.comparePassword = function (password) {
-// 	return bcrypt.compareSync(password, this.hash_password);
-// };
+userSchema.methods.comparePassword = function (password) {
+	return bcrypt.compareSync(password, this.hash_password);
+};
 
 export default mongoose.models.User || mongoose.model("User", userSchema);
