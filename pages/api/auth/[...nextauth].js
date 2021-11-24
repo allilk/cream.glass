@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import axios from "axios";
+import User from "../../../models/user";
+import { generateAccessToken } from "../../../helpers/jwt_helper";
 
 const providers = [
 	Providers.Credentials({
@@ -9,23 +10,17 @@ const providers = [
 			email: { label: "Email", type: "text" },
 			password: { label: "Password", type: "password" },
 		},
-		async authorize(credentials) {
-			const user = await axios.post(
-				"http://localhost:3000/api/user/login",
-				{
-					password: credentials.password,
-					email: credentials.email,
-				},
-				{
-					headers: {
-						accept: "*/*",
-						"Content-Type": "application/json",
-					},
-				}
-			);
-			if (user) {
-				return user.data;
+		async authorize({ email, password }) {
+			const existingUser = await User.findOne({ email });
+			if (existingUser && existingUser.comparePassword(password)) {
+				// Authentication success
+				const accessToken = await generateAccessToken(existingUser._id);
+				return {
+					accessToken,
+					existingUser,
+				};
 			} else {
+				// Authentication fail
 				return null;
 			}
 		},

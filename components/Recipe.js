@@ -21,7 +21,8 @@ const Recipe = ({ item }) => {
 					) : (
 						<img
 							src={item.thumbnail}
-							alt="/thumbnail.png"
+							alt="No Image"
+							onError={(this.src = "/thumbnail.png")}
 							width="100%"
 							height="100%"
 						></img>
