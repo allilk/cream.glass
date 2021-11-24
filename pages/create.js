@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { getSession } from "next-auth/client";
-// import { addRecipe } from "../helpers/recipes";
+import Router from "next/router";
 
 export const getServerSideProps = async (context) => {
 	return {
@@ -11,8 +11,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const Create = ({ session }) => {
-	if (!session.user && process.browser) Router.push("/");
-	const { accessToken } = session;
+	if (!session && process.browser) Router.push("/");
 
 	const [recipe, setRecipe] = useState({
 		name: "",
@@ -80,7 +79,13 @@ const Create = ({ session }) => {
 	const submitRecipe = async (event) => {
 		event.preventDefault();
 
-		// addRecipe(recipe, accessToken);
+		const newRecipe = await fetch("http://localhost:3000/api/recipes", {
+			method: "POST",
+			body: JSON.stringify(recipe),
+		});
+		const resp = await newRecipe.json();
+		console.log(resp);
+		Router.push("/" + resp.item.id);
 	};
 
 	const items = recipe.ingredients.map((item, i) => {

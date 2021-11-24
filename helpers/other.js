@@ -8,9 +8,9 @@ module.exports = {
 	generateRecipeId: async (length) => {
 		const identifier = randomstring.generate(length);
 
-		await Recipe.findOne({ id: identifier }, async (err, result) => {
+		Recipe.findOne({ id: identifier }, (err, result) => {
 			if (result) {
-				return await this.generateRecipeId(length);
+				return this.generateRecipeId(length);
 			}
 		});
 

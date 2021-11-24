@@ -2,12 +2,15 @@ import { getSession } from "next-auth/client";
 
 import connectDB from "../../../lib/mongdb";
 import Recipe from "../../../models/recipe";
+import User from "../../../models/user";
+import { generateRecipeId } from "../../../helpers/other";
 
 async function handler(req, res) {
 	const { method } = req;
 	const session = await getSession({ req });
 
-	return new Promise((resolve) => {
+	return new Promise(async (resolve) => {
+		await connectDB();
 		if (method === "GET") {
 			const maxLimit = 100;
 			const page = parseInt(req.query.page) || 1;
@@ -52,8 +55,45 @@ async function handler(req, res) {
 					return resolve();
 				});
 		} else if (method === "POST") {
-			console.log(session);
+			if (!session) {
+				res.status(400).send({
+					item: {},
+					message: "Unauthorized!",
+				});
+				return resolve();
+			}
+			const identifier = await generateRecipeId(5);
+			const recipeBody = JSON.parse(req.body);
+			const userId = session.user._id;
+			const newRecipe = new Recipe({
+				...recipeBody,
+				id: identifier,
+				details: {
+					created_by: userId,
+					category: recipeBody.category,
+				},
+			});
+			newRecipe.save(async (err, recipe) => {
+				if (recipe) {
+					const user = await User.findOne({ _id: userId });
+					if (user) {
+						user.recipes = [...user.recipes, recipe._id];
+						user.save();
+					}
+					res.status(200).send({
+						item: recipe,
+						message: "success",
+					});
+				} else {
+					res.status(400).send({
+						item: {},
+						message: err,
+					});
+				}
+			});
+
+			return resolve();
 		}
 	});
 }
-export default connectDB(handler);
+export default handler;
