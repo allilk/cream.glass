@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import User from "../models/user";
 
 const recipeSchema = new mongoose.Schema({
 	name: {

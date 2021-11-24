@@ -24,7 +24,7 @@ const Header = () => {
 						<Link href="">Explore</Link>
 					</div> */}
 				</div>
-				<div className="flex-1 place-items-end align-middle mt-1 top-0">
+				<div className="flex-1 place-items-end align-middle mt-1">
 					<SideMenu />
 				</div>
 			</div>

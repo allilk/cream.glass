@@ -1,27 +1,36 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
-import useSWR, { SWRConfig } from "swr";
+import Link from "next/link";
 
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
 
 import Ingredients from "../components/recipe/Ingredients";
 
-const getRecipe = async (recipeId) => {
-	const response = await fetch(
-		`http://localhost:3000/api/recipes/${recipeId}`
-	);
-	return await response.json();
+import { getRecipe, getAll } from "../helpers/recipes";
+
+export const getStaticPaths = async () => {
+	const recipes = await getAll();
+	const paths = recipes.map((recipe) => ({
+		params: { recipeId: recipe.id },
+	}));
+	return { paths, fallback: true };
 };
+export const getStaticProps = async ({ params }) => {
+	const { recipeId } = params;
 
-const Recipe = () => {
-	const {
-		query: { recipeId },
-	} = useRouter();
-
-	const { data: recipe, error } = useSWR("recipe", getRecipe(recipeId));
-
-	return (
+	if (!recipeId) {
+		return { props: {}, notFound: true };
+	}
+	const recipe = await getRecipe(recipeId);
+	return recipe
+		? { props: { recipe: JSON.parse(JSON.stringify(recipe)) } }
+		: { props: {}, notFound: true };
+};
+const Recipe = ({ recipe }) => {
+	const { isFallback } = useRouter();
+	return isFallback ? (
+		<div>Loading...</div>
+	) : (
 		<div className="overflow-x-hidden md:mx-0 mx-4">
 			<div className="mt-6 inline-grid grid-cols-1 md:grid-cols-5 w-full">
 				<div
@@ -72,7 +81,7 @@ const Recipe = () => {
 						</div>
 
 						<Link href={`/u/${recipe.details.created_by.id}`}>
-							<b>{recipe.details.created_by.fullName}</b>
+							<b>{recipe.details.created_by.name}</b>
 						</Link>
 					</div>
 
@@ -92,34 +101,5 @@ const Recipe = () => {
 		</div>
 	);
 };
-export const getStaticProps = async (context) => {
-	const {
-		params: { recipeId },
-	} = context;
 
-	const recipe = await getRecipe(recipeId);
-
-	return {
-		props: {
-			fallback: { recipe: recipe.item },
-		},
-	};
-};
-
-export const getStaticPaths = async () => {
-	const response = await fetch("http://localhost:3000/api/recipes/");
-	const recipes = await response.json();
-
-	const paths = recipes.items.map((recipe) => ({
-		params: { recipeId: recipe.id },
-	}));
-	return { paths, fallback: false };
-};
-
-export default function Page({ fallback }) {
-	return (
-		<SWRConfig value={{ fallback }}>
-			<Recipe />
-		</SWRConfig>
-	);
-}
+export default Recipe;

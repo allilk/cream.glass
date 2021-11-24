@@ -4,21 +4,10 @@ import useSWR, { SWRConfig } from "swr";
 import Message from "../components/Message";
 import convertName from "../components/helpers/format";
 
-const getRecipes = async () => {
-	const response = await fetch(
-		"http://localhost:3000/api/recipes?page=1&limit=6"
-	);
-	return await response.json();
-};
-const getCategories = async () => {
-	const response = await fetch("http://localhost:3000/api/categories");
-	return await response.json();
-};
+import { getAll } from "../helpers/recipes";
+import { getCategories } from "../helpers/categories";
 
-const Home = () => {
-	const { data: categories } = useSWR("categories", getCategories());
-	const { data: recipes } = useSWR("recipes", getRecipes());
-
+const Home = ({ recipes, categories }) => {
 	return (
 		<div className="">
 			<div className="block mx-4">
@@ -90,23 +79,15 @@ const Home = () => {
 };
 
 export const getStaticProps = async () => {
-	const recipes = await getRecipes();
+	const recipes = await getAll();
 	const categories = await getCategories();
 
 	return {
 		props: {
-			fallback: {
-				recipes: recipes.items,
-				categories: categories.items,
-			},
+			recipes: JSON.parse(JSON.stringify(recipes)),
+			categories: JSON.parse(JSON.stringify(categories)),
 		},
 	};
 };
 
-export default function Page({ fallback }) {
-	return (
-		<SWRConfig value={{ fallback }}>
-			<Home />
-		</SWRConfig>
-	);
-}
+export default Home;

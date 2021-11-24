@@ -12,5 +12,3 @@ const ingredientSchema = new mongoose.Schema({
 		required: true,
 	},
 });
-
-mongoose.model("Recipe", ingredientSchema);
