@@ -24,7 +24,10 @@ export const getStaticProps = async ({ params }) => {
 	}
 	const recipe = await getRecipe(recipeId);
 	return recipe
-		? { props: { recipe: JSON.parse(JSON.stringify(recipe)) } }
+		? {
+				props: { recipe: JSON.parse(JSON.stringify(recipe)) },
+				revalidate: 60 * 30,
+		  }
 		: { props: {}, notFound: true };
 };
 const Recipe = ({ recipe }) => {
@@ -36,7 +39,10 @@ const Recipe = ({ recipe }) => {
 			<Head>
 				<title>{recipe.name}</title>
 				<meta content={recipe.steps} name="og:description" />
-				<meta content="/thumbnail.png" name="og:image" />
+				<meta
+					content={recipe.image ? recipe.image : "/thumbnail.png"}
+					name="og:image"
+				/>
 				<meta
 					content={
 						recipe.name + " by " + recipe.details.created_by.name

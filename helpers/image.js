@@ -41,7 +41,7 @@ module.exports = {
 		const getParams = {
 			Key: fileKey,
 			Bucket: bucketName,
-			Expires: 60,
+			Expires: 60 * 30,
 		};
 
 		return s3.getSignedUrl("getObject", getParams);
