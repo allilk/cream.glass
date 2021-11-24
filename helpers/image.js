@@ -4,10 +4,10 @@ import fs from "fs";
 import util from "util";
 const unlinkFile = util.promisify(fs.unlink);
 
-const bucketName = process.env.AWS_BUCKET_NAME;
-const region = process.env.AWS_BUCKET_REGION;
-const accessKeyId = process.env.AWS_ACCESS_KEY;
-const secretAccessKey = process.env.AWS_SECRET_KEY;
+const bucketName = process.env.IMG_BUCKET_NAME;
+const region = process.env.IMG_BUCKET_REGION;
+const accessKeyId = process.env.IMG_ACCESS_KEY;
+const secretAccessKey = process.env.IMG_SECRET_KEY;
 
 const s3 = new S3({
 	endpoint: "cdn.cream.glass",
