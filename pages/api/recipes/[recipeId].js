@@ -12,6 +12,7 @@ async function handler(req, res) {
 	} = req;
 
 	if (method === "GET") {
+		await connectDB();
 		// Get recipe
 		const recipe = await Recipe.findOne({ id }).populate(
 			"details.created_by",
@@ -28,7 +29,7 @@ async function handler(req, res) {
 		});
 	} else if (method === "POST") {
 		// Create recipe
-		const identifier = generateRecipeId(5);
+		const identifier = await generateRecipeId(5);
 		const userId = req.payload.aud;
 		const { newAccessToken } = req.payload;
 
@@ -86,4 +87,4 @@ async function handler(req, res) {
 		);
 	}
 }
-export default connectDB(handler);
+export default handler;

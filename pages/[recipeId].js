@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-
+import useSWR, { SWRConfig } from "swr";
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
 
@@ -25,14 +25,34 @@ export const getStaticProps = async ({ params }) => {
 	const recipe = await getRecipe(recipeId);
 	return recipe
 		? {
-				props: { recipe: JSON.parse(JSON.stringify(recipe)) },
+				props: {
+					fallback: {
+						"/api/recipes/": JSON.parse(JSON.stringify(recipe)),
+					},
+				},
 				revalidate: 60 * 30,
 		  }
 		: { props: {}, notFound: true };
 };
-const Recipe = ({ recipe }) => {
-	const { isFallback } = useRouter();
-	return isFallback ? (
+const Recipe = () => {
+	const {
+		isFallback,
+		query: { recipeId },
+	} = useRouter();
+
+	const fetcher = (url) =>
+		fetch(url + `/${recipeId}`, {
+			method: "GET",
+			header: {
+				"Content-Type": "applicaton/json",
+			},
+		}).then((res) => res.json());
+
+	const {
+		data: { item: recipe },
+	} = useSWR("/api/recipes/", fetcher);
+
+	return !recipe ? (
 		<div>Loading...</div>
 	) : (
 		<div className="overflow-x-hidden md:mx-0 mx-4">
@@ -120,4 +140,10 @@ const Recipe = ({ recipe }) => {
 	);
 };
 
-export default Recipe;
+export default function Page({ fallback }) {
+	return (
+		<SWRConfig value={{ fallback }}>
+			<Recipe />
+		</SWRConfig>
+	);
+}
