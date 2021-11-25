@@ -14,7 +14,7 @@ export const getStaticPaths = async () => {
 	const paths = recipes.map((recipe) => ({
 		params: { recipeId: recipe.id },
 	}));
-	return { paths, fallback: true };
+	return { paths, fallback: "blocking" };
 };
 export const getStaticProps = async ({ params }) => {
 	const { recipeId } = params;
@@ -36,7 +36,6 @@ export const getStaticProps = async ({ params }) => {
 };
 const Recipe = () => {
 	const {
-		isFallback,
 		query: { recipeId },
 	} = useRouter();
 
