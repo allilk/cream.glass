@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
+
 import useSWR, { SWRConfig } from "swr";
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
@@ -22,7 +24,10 @@ export const getStaticProps = async ({ params }) => {
 	if (!recipeId) {
 		return { props: {}, notFound: true };
 	}
-	const recipe = await getRecipe(recipeId);
+	let recipe;
+	try {
+		recipe = await getRecipe(recipeId);
+	} catch (err) {}
 	return recipe
 		? {
 				props: {
@@ -47,9 +52,9 @@ const Recipe = () => {
 			},
 		}).then((res) => res.json());
 
-	const {
-		data: { item: recipe },
-	} = useSWR("/api/recipes/", fetcher);
+	const { data: recipe } = useSWR("/api/recipes/", fetcher, {
+		suspense: true,
+	});
 
 	return !recipe ? (
 		<div>Loading...</div>
@@ -71,31 +76,34 @@ const Recipe = () => {
 			</Head>
 			<div className="mt-6 inline-grid grid-cols-1 md:grid-cols-5 w-full">
 				<div
+					className="bg-gray-200 col-span-1 mx-auto mb-4"
 					style={{
 						maxHeight: "250px",
 						maxWidth: "250px",
 						aspectRatio: "1/1",
 					}}
-					className="bg-gray-200 col-span-1 mx-auto mb-4"
 				>
-					<div className="relative border-2 border-gray-400 rounded ">
+					<div
+						className="relative border-2 border-gray-400 rounded "
+						style={{
+							width: "250px",
+							height: "250px",
+						}}
+					>
 						{!recipe.image ? (
-							<img
+							<Image
 								src="/thumbnail.png"
-								width="100%"
-								height="100%"
-							></img>
+								layout="fill"
+								objectFit="contain"
+							></Image>
 						) : (
-							<img
+							<Image
 								className="mx-auto block"
 								src={recipe.image}
+								layout="fill"
+								objectFit="contain"
 								alt="No Image"
-								style={{
-									maxHeight: "250px",
-									maxWidth: "250px",
-									aspectRatio: "1/1",
-								}}
-							></img>
+							></Image>
 						)}
 					</div>
 				</div>

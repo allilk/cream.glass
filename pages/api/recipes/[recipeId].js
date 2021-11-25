@@ -23,10 +23,7 @@ async function handler(req, res) {
 			recipe.image = await imageController.get(recipe.image);
 		}
 
-		return res.status(recipe ? 200 : 204).send({
-			item: recipe,
-			message: "success",
-		});
+		return res.status(recipe ? 200 : 204).send(recipe);
 	} else if (method === "POST") {
 		// Create recipe
 		const identifier = await generateRecipeId(5);
