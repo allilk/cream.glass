@@ -41,6 +41,7 @@ export const getStaticProps = async ({ params }) => {
 };
 const Recipe = () => {
 	const {
+		isFallback,
 		query: { recipeId },
 	} = useRouter();
 
@@ -52,11 +53,9 @@ const Recipe = () => {
 			},
 		}).then((res) => res.json());
 
-	const { data: recipe } = useSWR("/api/recipes/", fetcher, {
-		suspense: true,
-	});
+	const { data: recipe } = useSWR("/api/recipes/", fetcher);
 
-	return !recipe ? (
+	return !recipe && isFallback ? (
 		<div>Loading...</div>
 	) : (
 		<div className="overflow-x-hidden md:mx-0 mx-4">
