@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 
 // import useSWR, { SWRConfig } from "swr";
 import ReactMarkdown from "react-markdown";
@@ -85,7 +85,7 @@ const Recipe = ({ recipe }) => {
 							height: "250px",
 						}}
 					>
-						{!recipe.image ? (
+						{/* {!recipe.image ? (
 							<Image
 								src="/thumbnail.png"
 								layout="fill"
@@ -99,6 +99,24 @@ const Recipe = ({ recipe }) => {
 								objectFit="contain"
 								alt="No Image"
 							></Image>
+						)} */}
+						{!recipe.image ? (
+							<img
+								src="/thumbnail.png"
+								width="100%"
+								height="100%"
+							></img>
+						) : (
+							<img
+								className="mx-auto block"
+								src={recipe.image}
+								alt="No Image"
+								style={{
+									maxHeight: "250px",
+									maxWidth: "250px",
+									aspectRatio: "1/1",
+								}}
+							></img>
 						)}
 					</div>
 				</div>
