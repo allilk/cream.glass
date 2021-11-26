@@ -24,10 +24,8 @@ export const getStaticProps = async ({ params }) => {
 	if (!recipeId) {
 		return { props: {}, notFound: true };
 	}
-	let recipe;
-	try {
-		recipe = await getRecipe(recipeId);
-	} catch (err) {}
+	const recipe = await getRecipe(recipeId);
+
 	return recipe
 		? {
 				props: {
@@ -53,7 +51,7 @@ const Recipe = () => {
 			},
 		}).then((res) => res.json());
 
-	const { data: recipe } = useSWR("/api/recipes/", fetcher);
+	const { data: recipe } = useSWR(recipeId ? "/api/recipes/" : null, fetcher);
 
 	return !recipe && isFallback ? (
 		<div>Loading...</div>

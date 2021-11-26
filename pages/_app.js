@@ -2,9 +2,11 @@ import { Provider } from "next-auth/client";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
+import { useRouter } from "next/router";
 // Use the <Provider> to improve performance and allow components that call
 // `useSession()` anywhere in your application to access the `session` object.
 function App({ Component, pageProps }) {
+	const router = useRouter();
 	return (
 		<Provider
 			// Provider options are not required but can be useful in situations where
@@ -25,6 +27,7 @@ function App({ Component, pageProps }) {
 				keepAlive: 0,
 			}}
 			session={pageProps.session}
+			key={router.asPath}
 		>
 			<Layout>
 				<Component {...pageProps} />
