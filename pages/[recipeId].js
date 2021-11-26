@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
-import useSWR, { SWRConfig } from "swr";
+// import useSWR, { SWRConfig } from "swr";
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
 
@@ -16,7 +16,7 @@ export const getStaticPaths = async () => {
 	const paths = recipes.map((recipe) => ({
 		params: { recipeId: recipe.id },
 	}));
-	return { paths, fallback: "blocking" };
+	return { paths, fallback: true };
 };
 export const getStaticProps = async ({ params }) => {
 	const { recipeId } = params;
@@ -29,31 +29,29 @@ export const getStaticProps = async ({ params }) => {
 	return recipe
 		? {
 				props: {
-					fallback: {
-						"/api/recipes/": JSON.parse(JSON.stringify(recipe)),
-					},
+					recipe: JSON.parse(JSON.stringify(recipe)),
 				},
-				revalidate: 60 * 30,
+				revalidate: 10,
 		  }
 		: { props: {}, notFound: true };
 };
-const Recipe = () => {
+const Recipe = ({ recipe }) => {
 	const {
 		isFallback,
 		query: { recipeId },
 	} = useRouter();
 
-	const fetcher = (url) =>
-		fetch(url + `/${recipeId}`, {
-			method: "GET",
-			header: {
-				"Content-Type": "applicaton/json",
-			},
-		}).then((res) => res.json());
+	// const fetcher = (url) =>
+	// 	fetch(url + `/${recipeId}`, {
+	// 		method: "GET",
+	// 		header: {
+	// 			"Content-Type": "applicaton/json",
+	// 		},
+	// 	}).then((res) => res.json());
 
-	const { data: recipe } = useSWR(recipeId ? "/api/recipes/" : null, fetcher);
+	// const { data: recipe } = useSWR(recipeId ? "/api/recipes/" : null, fetcher);
 
-	return !recipe && isFallback ? (
+	return isFallback ? (
 		<div>Loading...</div>
 	) : (
 		<div className="overflow-x-hidden md:mx-0 mx-4">
@@ -144,10 +142,11 @@ const Recipe = () => {
 	);
 };
 
-export default function Page({ fallback }) {
-	return (
-		<SWRConfig value={{ fallback }}>
-			<Recipe />
-		</SWRConfig>
-	);
-}
+// export default function Page({ fallback }) {
+// 	return (
+// 		<SWRConfig value={{ fallback }}>
+// 			<Recipe />
+// 		</SWRConfig>
+// 	);
+// }
+export default Recipe;
